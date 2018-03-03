@@ -24,7 +24,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -69,8 +68,18 @@ public class UaaServiceApplication extends WebMvcConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
-                .anyRequest().authenticated();
+
+            http
+                    .formLogin().loginPage("/login").permitAll()
+                    .and().httpBasic().and()
+                    .requestMatchers()
+                    //specify urls handled
+                    .antMatchers("/login","/registration", "/oauth/authorize", "/oauth/confirm_access")
+                    .antMatchers("/fonts/**", "/js/**", "/css/**","/layout_files/**")
+                    .and()
+                    .authorizeRequests()
+                    .antMatchers("/fonts/**", "/js/**", "/css/**","**/registration/**","/registration").permitAll()
+                    .anyRequest().authenticated();
         }
 
         @Override

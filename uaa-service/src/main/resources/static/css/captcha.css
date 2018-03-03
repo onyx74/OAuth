@@ -1,0 +1,26 @@
+.g-recaptcha-outer{
+    width: 125%;
+    text-align: left;
+    border-radius: 2px;
+    background: #f9f9f9;
+    border-style: solid;
+    border-color: #37474f;
+    border-width: 1px;
+    border-bottom-width: 1px;
+}
+.g-recaptcha-inner{
+    width: 35px;
+    height: 44px;
+    overflow: hidden;
+}
+.g-recaptcha{
+    position:relative;
+    left: -2px;
+    top: -1px;
+}
+.g-recaptcha-text{
+
+    margin: 0 0 10px;
+    margin-left: 10%;
+    margin-top: -7%;
+}

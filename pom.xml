@@ -18,22 +18,71 @@
     <modules>
         <module>api-gateway</module>
         <module>service-registry</module>
-        <module>dummy-service</module>
         <module>uaa-service</module>
+        <module>common</module>
+        <module>user</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <spring-cloud-dependencies.version>Edgware.RELEASE</spring-cloud-dependencies.version>
+        <spring.cloud.version>1.4.3.RELEASE</spring.cloud.version>
+
+        <spring.boot.starter.web.version>1.4.0.RELEASE</spring.boot.starter.web.version>
+        <guava.version>21.0</guava.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- ################ Spring ################-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-zuul</artifactId>
+                <version>${spring.cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-feign</artifactId>
+                <version>${spring.cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-eureka</artifactId>
+                <version>${spring.cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.starter.web.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring.cloud.version}</version>
+            </dependency>
+            <!---->
+            <!-- ################ Common ################-->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jmnarloch</groupId>
+                <artifactId>feign-oauth2-spring-cloud-starter</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring.cloud.version}</version>
+            </dependency>
+            <!---->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud-dependencies.versiong}</version>
+                <version>${spring-cloud-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
