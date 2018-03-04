@@ -58,6 +58,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.jmnarloch</groupId>
+            <artifactId>feign-oauth2-spring-cloud-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vanya</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.6</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -28,9 +28,15 @@
         <java.version>1.8</java.version>
         <spring-cloud-dependencies.version>Edgware.RELEASE</spring-cloud-dependencies.version>
         <spring.cloud.version>1.4.3.RELEASE</spring.cloud.version>
+        <spring.project.version>1.5.1.RELEASE</spring.project.version>
 
         <spring.boot.starter.web.version>1.4.0.RELEASE</spring.boot.starter.web.version>
         <guava.version>21.0</guava.version>
+        <postgres.version>9.4.1212</postgres.version>
+        <model.mapper.version>0.7.4</model.mapper.version>
+        <spring.context.support.version>4.3.7.RELEASE</spring.context.support.version>
+        <feign-oauth2-spring-cloud-starter.version>1.0.0</feign-oauth2-spring-cloud-starter.version>
+        <lombok.version>1.16.12</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -71,13 +77,19 @@
             <dependency>
                 <groupId>io.jmnarloch</groupId>
                 <artifactId>feign-oauth2-spring-cloud-starter</artifactId>
-                <version>1.0.0</version>
+                <version>${feign-oauth2-spring-cloud-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring.cloud.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
             <!---->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -86,6 +98,35 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!--################### Spring Data #####################-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring.project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgres.version}</version>
+            </dependency>
+
+            <!--############## Mapper #####################-->
+            <dependency>
+                <groupId>org.modelmapper</groupId>
+                <artifactId>modelmapper</artifactId>
+                <version>${model.mapper.version}</version>
+            </dependency>
+
+            <!--###################  Mail Sender ###################-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>${spring.project.version}</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

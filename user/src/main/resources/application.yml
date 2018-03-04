@@ -1,10 +1,40 @@
 server:
   port: 8180
 
+app:
+  url: localhost:8080
 
 spring:
   application:
     name: user-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/usersdb
+    username: vanya
+    password: 123456
+  jpa:
+    ddl-auto: update
+    generate-ddl: true
+  maill:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    username: diplomV7@gmail.com
+    password: lbgkjvD7
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          timeout: mv8000
+        starttls:
+          enable: true
+
+
+################### JavaMail Configuration ##########################
+support:
+  email: diplomV7@gmail.com
+
 eureka:
   instance:
     appname: user-service
@@ -35,3 +65,8 @@ security:
           -----END PUBLIC KEY-----
       id: openid
       serviceId: ${PREFIX:}resource
+
+
+
+
+

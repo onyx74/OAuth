@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="css/ionicons.min.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="css/vivi.min.css"/>
+    <!-- iCheck -->
+    <link rel="stylesheet" href="css/blue.css"/>
+    <link rel="stylesheet" href="css/captcha.css"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+    <title>Login Page</title>
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/home"><b>VIVI</b>CORPORATION</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Registry now and make your life better</p>
+
+        <form action="/user/registration" method="POST">
+            <div class="form-group has-feedback">
+                <input type="text" name='userName' required="required"  class="form-control" placeholder="User Name"/>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                <input type="email" name='email' required="required" class="form-control" placeholder="Email"/>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name='password' required="required" class="form-control" placeholder="Password"/>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" name='confirmPassword' required="required" class="form-control" placeholder="Retype password"/>
+                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            </div>
+
+            <div class="g-recaptcha-outer" style="transform:scale(0.8);transform-origin:0 0">
+                <div class="g-recaptcha-inner" style="transform:scale(0.8);transform-origin:0 0">
+                    <div id="recaptcha" class="g-recaptcha" style="transform:scale(0.8);transform-origin:0 0"
+                         data-size="compact"
+                         data-sitekey="6LcorTwUAAAAAFQUc3oIYUXJ9AX1YJsZnTGH2rCT"></div>
+
+                </div>
+                <p class="g-recaptcha-text"><strong>I am not a robot</strong></p>
+            </div>
+            <span id="nameError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
+            <span id="passwordError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
+            <span id="emailError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
+            <span id="error" class="text-danger col-xs-12" style="display:none;color:red;"></span>
+
+            <div id="afterLine" style="display: none">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                </div>
+            </div>
+        </form>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12">
+                <button onclick="location.href = '/uaa/login';"
+                        class="btn btn-success btn-block btn-flat">Sign in exist account
+                </button>
+            </div>
+        </div>
+        <br/>
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<!-- jQuery 3 -->
+<script src="css/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="css/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="css/icheck.min.js"></script>
+<script type="text/javascript">
+    function validate() {
+        var password = $("#password").value;
+        var confirmPassword = $("#confirmPassword").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var serverContext = [[@{
+        /}]];
+
+        $(document).ready(function () {
+            $('form').submit(function (event) {
+                register(event);
+            });
+        });
+
+        function register(event) {
+            event.preventDefault();
+            $(".alert").html("").hide();
+            $(".error-list").html("");
+            if ($("#password").val() != $("#confirmPassword").val()) {
+                $("#globalError").show().html(/*[[#{PasswordMatches.user}]]*/);
+                return;
+            }
+            var formData = $('form').serialize();
+            $.ajax({
+                url: '/api/user/',
+                type: 'POST',
+                data: formData,
+                success: function (res) {
+                    alert("asdasd");
+                }
+
+            });
+                // .fail(function (data) {
+                //     if (data.responseJSON.errors != undefined) {
+                //
+                //         for (i = 0; i < data.responseJSON.errors.length; ++i) {
+                //             if (data.responseJSON.errors[i].field === "userName") {
+                //                 $('#nameError').show()
+                //                     .html( data.responseJSON.errors[i].defaultMessage);
+                //             } else if (data.responseJSON.errors[i].field === "password") {
+                //                 $("#passwordError").show()
+                //                     .html(data.responseJSON.errors[i].defaultMessage);
+                //             } else if (data.responseJSON.errors[i].field === "email") {
+                //                 $("#emailError").show()
+                //                     .html( data.responseJSON.errors[i].defaultMessage);
+                //             }
+                //         }
+                //     }
+                //     if ((data.responseJSON.errors == undefined ||
+                //             data.responseJSON.errors.length == 0) && (
+                //             data.responseJSON.error === "Internal Server Error"
+                //         )) {
+                //         $("#error").show().html(data.responseJSON.message);
+                //     }
+                //     grecaptcha.reset();
+                //     $("#afterLine").show();
+                // });
+        }
+    /*]]>*/
+
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script src="js/vendor/bootstrap.min.js"></script>
+
+<script src="js/main.js"></script>
+<!-- jQuery 3 -->
+<script src="css/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="css/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="css/icheck.min.js"></script>
+</body>
+</html>

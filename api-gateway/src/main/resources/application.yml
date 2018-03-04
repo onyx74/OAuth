@@ -22,7 +22,7 @@ zuul:
     dummy-service: /dummy/**
     user-service:
       sensitiveHeaders:
-      path: /**
+      path: /api/user/**
       stripPrefix: false
     uaa-service:
       sensitiveHeaders:
