@@ -19,7 +19,6 @@ eureka:
 
 zuul:
   routes:
-    dummy-service: /dummy/**
     user-service:
       sensitiveHeaders:
       path: /api/user/**
@@ -30,8 +29,8 @@ zuul:
       stripPrefix: false
   add-proxy-headers: true
   host:
-    connect-timeout-millis: 60000
-    socket-timeout-millis: 30000
+    connect-timeout-millis: 120000
+    socket-timeout-millis: 120000
 security:
   # Disable Spring Boot basic authentication
   basic:
@@ -57,3 +56,13 @@ logging:
 ribbon:
   ConnectTimeout: 120000
   ReadTimeout: 120000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
+        timeout:
+          enabled: false

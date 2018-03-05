@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -32,7 +32,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Login Page</title>
+    <title>Registration Page</title>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -45,7 +45,7 @@
 
         <form action="/user/registration" method="POST">
             <div class="form-group has-feedback">
-                <input type="text" name='userName' required="required"  class="form-control" placeholder="User Name"/>
+                <input type="text" name='username' required="required" class="form-control" placeholder="User Name"/>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
 
@@ -58,7 +58,8 @@
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name='confirmPassword' required="required" class="form-control" placeholder="Retype password"/>
+                <input type="password" name='confirmPassword' required="required" class="form-control"
+                       placeholder="Retype password"/>
                 <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
             </div>
 
@@ -74,18 +75,21 @@
             <span id="nameError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
             <span id="passwordError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
             <span id="emailError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
-            <span id="error" class="text-danger col-xs-12" style="display:none;color:red;"></span>
+            <span id="error0" name="error" class="text-danger col-xs-12" style="color:red;"></span>
+            <span id="error1" name="error1" class="text-danger col-xs-12" style="color:red;"></span>
+            <span id="error2" name="error2" class="text-danger col-xs-12" style="color:red;"></span>
+            <span id="error3" name="error3" class="text-danger col-xs-12" style="color:red;"></span>
 
             <div id="afterLine" style="display: none">
-                <br/>
-                <br/>
                 <br/>
                 <br/>
             </div>
 
             <div class="row">
                 <div class="col-xs-12">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                    <button type="button" onclick="registerNewUser()" class="btn btn-primary btn-block btn-flat">
+                        Register
+                    </button>
                 </div>
             </div>
         </form>
@@ -112,76 +116,46 @@
 <script src="css/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="css/icheck.min.js"></script>
-<script type="text/javascript">
+
+<script>
+    /*<![CDATA[*/
+    function registerNewUser(event) {
+        var formData = $('form').serialize();
+        $.ajax({
+            url: '/api/user/',
+            type: 'POST',
+            data: formData,
+            success: function (res) {
+                alert("asdasd");
+            },
+            error: function (request, status, error) {
+                $('#afterLine').show();
+                if(request.responseJSON.errors){
+                    for (var i = 0; i < request.responseJSON.errors.length; ++i) {
+                        var z=request.responseJSON.errors[i];
+                        $('#error'+i).text(z.defaultMessage);
+                    }
+                }else {
+                    alert(request);
+                    $('#error').text(request.responseJSON.message);
+                }
+            }
+        });
+
+    }
+
     function validate() {
         var password = $("#password").value;
         var confirmPassword = $("#confirmPassword").value;
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
             alert("Passwords do not match.");
             return false;
         }
         return true;
     }
-</script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var serverContext = [[@{
-        /}]];
-
-        $(document).ready(function () {
-            $('form').submit(function (event) {
-                register(event);
-            });
-        });
-
-        function register(event) {
-            event.preventDefault();
-            $(".alert").html("").hide();
-            $(".error-list").html("");
-            if ($("#password").val() != $("#confirmPassword").val()) {
-                $("#globalError").show().html(/*[[#{PasswordMatches.user}]]*/);
-                return;
-            }
-            var formData = $('form').serialize();
-            $.ajax({
-                url: '/api/user/',
-                type: 'POST',
-                data: formData,
-                success: function (res) {
-                    alert("asdasd");
-                }
-
-            });
-                // .fail(function (data) {
-                //     if (data.responseJSON.errors != undefined) {
-                //
-                //         for (i = 0; i < data.responseJSON.errors.length; ++i) {
-                //             if (data.responseJSON.errors[i].field === "userName") {
-                //                 $('#nameError').show()
-                //                     .html( data.responseJSON.errors[i].defaultMessage);
-                //             } else if (data.responseJSON.errors[i].field === "password") {
-                //                 $("#passwordError").show()
-                //                     .html(data.responseJSON.errors[i].defaultMessage);
-                //             } else if (data.responseJSON.errors[i].field === "email") {
-                //                 $("#emailError").show()
-                //                     .html( data.responseJSON.errors[i].defaultMessage);
-                //             }
-                //         }
-                //     }
-                //     if ((data.responseJSON.errors == undefined ||
-                //             data.responseJSON.errors.length == 0) && (
-                //             data.responseJSON.error === "Internal Server Error"
-                //         )) {
-                //         $("#error").show().html(data.responseJSON.message);
-                //     }
-                //     grecaptcha.reset();
-                //     $("#afterLine").show();
-                // });
-        }
     /*]]>*/
-
 </script>
-
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 <script src="js/vendor/bootstrap.min.js"></script>

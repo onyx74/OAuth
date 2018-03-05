@@ -4,11 +4,13 @@ import com.vanya.dto.RegistrationUserDto;
 import com.vanya.dto.UserDto;
 import com.vanya.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 import java.util.Optional;
@@ -28,7 +30,7 @@ public class UserController {
 
 
     @PostMapping("/api/user/")
-    public ModelAndView createNewUser(@ModelAttribute("userForm") RegistrationUserDto user,
+    public ModelAndView createNewUser(@Valid @ModelAttribute("userForm") RegistrationUserDto user,
                                       HttpServletRequest request) {
         log.info("Got user registration request: {}", user.getEmail());
         userService.validateNewUser(user);
@@ -37,7 +39,7 @@ public class UserController {
             throw new IllegalArgumentException(" The password and confirm password should be the same");
         }
 
-        if (request.getParameter("g-recaptcha-response") == null) {
+        if (StringUtils.isBlank(request.getParameter("g-recaptcha-response"))) {
             throw new IllegalArgumentException("Click on capcha");
         }
         userService.registryNewUser(user);
@@ -46,10 +48,10 @@ public class UserController {
     }
 
     @RequestMapping("/api/user/registration/resend/")
-    public String resendRegistrationToken(@PathParam("email") String email){
-        if(userService.isConfirmedEmail(email)){
+    public String resendRegistrationToken(@PathParam("email") String email) {
+        if (userService.isConfirmedEmail(email)) {
             return "You've already confirmed registration";
-        }else{
+        } else {
             userService.resendRegistrationToken(email);
         }
         return "Success";
