@@ -27,7 +27,7 @@ public class OnRegistrationCompleteEvent extends ProjectEvent {
 
     public String getMessageForUser() {
         return String.format("Thank you for registering on our website." +
-                " \r\n %s/user/registration/confirm?token=%s", appUrl, token);
+                " \r\n %s/api/user/registration/confirm?token=%s", appUrl, token);
 
 
     }

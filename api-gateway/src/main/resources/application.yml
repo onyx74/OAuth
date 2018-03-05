@@ -29,7 +29,9 @@ zuul:
       path: /uaa/**
       stripPrefix: false
   add-proxy-headers: true
-
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 30000
 security:
   # Disable Spring Boot basic authentication
   basic:
@@ -51,3 +53,7 @@ security:
 
 logging:
   level.org.springframework.security: DEBUG
+
+ribbon:
+  ConnectTimeout: 120000
+  ReadTimeout: 120000

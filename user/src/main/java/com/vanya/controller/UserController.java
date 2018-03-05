@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
+
 import java.util.Optional;
 
 @RestController
@@ -24,10 +26,7 @@ public class UserController {
         return userByName.orElse(null);
     }
 
-    @GetMapping("/api/user/")
-    public String get(){
-        return "sdf";
-    }
+
     @PostMapping("/api/user/")
     public ModelAndView createNewUser(@ModelAttribute("userForm") RegistrationUserDto user,
                                       HttpServletRequest request) {
@@ -44,5 +43,15 @@ public class UserController {
         userService.registryNewUser(user);
 
         return new ModelAndView("redirect:/login");
+    }
+
+    @RequestMapping("/api/user/registration/resend/")
+    public String resendRegistrationToken(@PathParam("email") String email){
+        if(userService.isConfirmedEmail(email)){
+            return "You've already confirmed registration";
+        }else{
+            userService.resendRegistrationToken(email);
+        }
+        return "Success";
     }
 }

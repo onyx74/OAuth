@@ -18,15 +18,19 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
     @Query("select u.id from UserEntity u where u.username = ?1")
     long findUserIdByUsername(String userName);
 
+    @Query("select  u.enabled from UserEntity  u where u.email= ?1")
+    Boolean getUserEnabledByEmail(String email);
+
     boolean existsByEmail(String email);
 
     @Modifying(clearAutomatically = true)
     @Query("UPDATE UserEntity u SET u.enabled = false WHERE u.email = :email")
     int disableUser(@Param("email") String email);
 
+    @Transactional
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE UserEntity u SET u.enabled = true WHERE u.email = :email")
-    int enableUser(@Param("email") String email);
+    @Query("UPDATE UserEntity u SET u.enabled = true WHERE u.id = :userId")
+    int enableUser(@Param("userId") Long userId);
 
     @Modifying(clearAutomatically = true)
     @Transactional

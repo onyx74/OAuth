@@ -27,6 +27,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableOAuth2Client
 @PropertySource({"email.properties"})
 public class UserApplication extends ResourceServerConfigurerAdapter {
+
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);
     }
@@ -34,11 +35,13 @@ public class UserApplication extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().formLogin().loginPage("/login").permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/reader", "/api/user/{userName}","/api/user").permitAll();
+            .and()
+            .authorizeRequests()
+            .antMatchers("/reader", "/api/user/{userName}", "/api/user", "/api/user/css/**", "/api/user/js/**"
+                    , "/api/user/registration/resend/**").permitAll();
 
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

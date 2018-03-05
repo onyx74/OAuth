@@ -9,6 +9,7 @@ import com.vanya.exception.EmailExistException;
 import com.vanya.exception.UserNameExistException;
 import com.vanya.model.UserEntity;
 import com.vanya.model.token.VerificationToken;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -35,7 +37,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Value("${app.url")
+    @Value("${app.url}")
     private String appUrl;
 
     @Autowired
@@ -77,8 +79,44 @@ public class UserService {
         verificationTokenRepository.save(myToken);
     }
 
+    public boolean isConfirmedEmail(final String email) {
+        final Boolean userEnabled = userRepository.getUserEnabledByEmail(email);
+        if(userEnabled==null){
+            throw new UserNameExistException("This email doesn't exist");
+        }
+        return userEnabled;
+    }
+
+    public void resendRegistrationToken(final String email) {
+        UserEntity userEntity = userRepository.findUserEntitiesByEmail(email);
+        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userEntity, getAppUrl()));
+
+    }
+
+    public String confirmUserRegistration(String token) {
+        final VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
+
+        if (verificationToken == null) {
+            return VerificationToken.TOKEN_INVALID;
+        } else if (verificationToken.getExpiryDate().getTime() - System.currentTimeMillis() <= 0) {
+            verificationTokenRepository.delete(verificationToken);
+            return VerificationToken.TOKEN_EXPIRED;
+        }
+
+        final Long userId = verificationToken.getUserId();
+
+        userRepository.enableUser(userId);
+        verificationTokenRepository.delete(verificationToken);
+
+        log.info("Confirm user registration. userId: {}", userId);
+
+        return VerificationToken.TOKEN_VALID;
+    }
+
 
     private String getAppUrl() {
-        return "http://" + appUrl + "/api/user/";
+        return "http://" + appUrl;
     }
+
+
 }
