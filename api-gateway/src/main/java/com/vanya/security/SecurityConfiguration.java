@@ -54,15 +54,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/uaa/**", "/login","/api/user/**","/api/user","/css/**"
-                ,"/js/**","/api/user/css/**","/api/user/js/**","/js/**","/fonts/**").permitAll().anyRequest().authenticated()
-            .and()
-            .csrf().requireCsrfProtectionMatcher(csrfRequestMatcher()).csrfTokenRepository(csrfTokenRepository())
-            .and()
-            .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
-            .addFilterAfter(oAuth2AuthenticationProcessingFilter(), AbstractPreAuthenticatedProcessingFilter.class)
-            .logout().permitAll()
-            .logoutSuccessUrl("/").and().csrf().disable();
+        http.authorizeRequests()
+                .antMatchers("/uaa/**", "/login", "/api/user", "/css/**"
+                        ,"/api/user/{userName}","/api/user/","/api/user/changePassword","/api/user/registration/resend/",
+                        "/api/user/send/changePasswordToken","/api/user/registration/confirm","/api/user/password",
+                        "/api/user/registration/success","api/user/resendRegistrationToken","/api/user/resendRegistrationToken/success",
+                        "/api/user/forgotPassword","/api/user/success/sendChangePassword","/api/user/changePassword/success"
+                        , "/js/**", "/api/user/css/**", "/api/user/js/**", "/js/**", "/fonts/**").permitAll()
+                .antMatchers("/api/user/test/asd").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+                .anyRequest().authenticated()
+                .and()
+                .csrf().requireCsrfProtectionMatcher(csrfRequestMatcher()).csrfTokenRepository(csrfTokenRepository())
+                .and()
+                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
+                .addFilterAfter(oAuth2AuthenticationProcessingFilter(), AbstractPreAuthenticatedProcessingFilter.class)
+                .logout().permitAll()
+                .logoutSuccessUrl("/").and().csrf().disable();
     }
 
     private OAuth2AuthenticationProcessingFilter oAuth2AuthenticationProcessingFilter() {
@@ -90,7 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             private final Pattern allowedMethods = Pattern.compile("^(GET|HEAD|OPTIONS|TRACE)$");
 
             // Disable CSFR protection on the following urls:
-            private final AntPathRequestMatcher[] requestMatchers = { new AntPathRequestMatcher("/uaa/**") };
+            private final AntPathRequestMatcher[] requestMatchers = {new AntPathRequestMatcher("/uaa/**")};
 
             @Override
             public boolean matches(HttpServletRequest request) {

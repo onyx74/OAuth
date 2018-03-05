@@ -1,5 +1,7 @@
 package com.vanya;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -36,12 +38,13 @@ public class UserApplication extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().formLogin().loginPage("/login").permitAll()
-            .and()
-            .authorizeRequests()
-            .antMatchers("/reader", "/api/user/{userName}",
-                         "/api/user/registration/success", "/api/user", "/api/user/css/**", "/api/user/js/**"
-                    , "/api/user/registration/resend/**").permitAll();
+        http.formLogin().loginPage("/login").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/reader", "/api/user/{userName}",
+                        "/api/user/registration/success", "/api/user", "/api/user/css/**", "/api/user/js/**"
+                        , "/api/user/registration/resend/**").permitAll()
+                .antMatchers("/api/user/test").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')");
 
     }
 

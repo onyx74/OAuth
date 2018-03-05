@@ -1,5 +1,7 @@
 package com.vanya.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,8 +26,9 @@ public class UserDto implements UserDetails {
     private String surname;
 
     private String pathToPhoto;
-
+    @JsonIgnore
     private LocalDate birthDate;
+    @JsonIgnore
     private LocalDate createdAt;
 
     private GrantedAuthority authorities;

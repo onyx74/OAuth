@@ -10,6 +10,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -46,6 +47,7 @@ import java.security.KeyPair;
 @EnableWebSecurity
 @EnableFeignClients(basePackages = "com.vanya.client")
 @EnableEurekaClient
+@ComponentScan({"com.vanya.*", "com.vanya.validation.validators"})
 public class UaaServiceApplication extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) {
@@ -99,7 +101,7 @@ public class UaaServiceApplication extends WebMvcConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
 
-            http
+            http.csrf().disable()
                     .formLogin().loginPage("/login")
                     .failureHandler(authenticationFailureHandler).permitAll()
                     .and()

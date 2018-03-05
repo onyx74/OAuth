@@ -70,7 +70,6 @@ public class UserService {
     }
 
     public void createChangePasswordTokenForUser(UserEntity user, String token) {
-        //todo make that resend verification token and change password tocken like comand patter
         final ChangePasswordToken passwordToken = new ChangePasswordToken(token, user);
         passwordTokenRepository.save(passwordToken);
     }
@@ -79,7 +78,7 @@ public class UserService {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(user.getUsername());
         userEntity.setCreatedAt(LocalDate.now());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntity.setEmail(user.getEmail());
 
         userEntity = userRepository.save(userEntity);

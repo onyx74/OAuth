@@ -7,6 +7,7 @@ import com.vanya.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,11 @@ public class UserController {
         return userByName.orElse(null);
     }
 
+    @PreAuthorize ("hasRole('ROLE_USER')")
+    @GetMapping("/api/user/test/asd")
+    public String testController() {
+        return "Test";
+    }
 
     @PostMapping("/api/user/")
     public String createNewUser(@Valid @ModelAttribute("userForm") RegistrationUserDto user,
