@@ -34,8 +34,8 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
 
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query("UPDATE UserEntity  u SET u.password= ?1 WHERE u.username= ?2")
-    int setNewPassword(String password, String userName);
+    @Query("UPDATE UserEntity  u SET u.password= ?1 WHERE u.id= ?2")
+    int setNewPassword(String password, long userId);
 
     @Modifying(clearAutomatically = true)
     @Transactional

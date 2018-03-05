@@ -1,5 +1,6 @@
 package com.vanya.controller;
 
+import com.vanya.dto.ChangePasswordDTO;
 import com.vanya.dto.RegistrationUserDto;
 import com.vanya.dto.UserDto;
 import com.vanya.service.UserService;
@@ -7,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -30,8 +30,8 @@ public class UserController {
 
 
     @PostMapping("/api/user/")
-    public ModelAndView createNewUser(@Valid @ModelAttribute("userForm") RegistrationUserDto user,
-                                      HttpServletRequest request) {
+    public String createNewUser(@Valid @ModelAttribute("userForm") RegistrationUserDto user,
+                                HttpServletRequest request) {
         log.info("Got user registration request: {}", user.getEmail());
         userService.validateNewUser(user);
 
@@ -44,7 +44,22 @@ public class UserController {
         }
         userService.registryNewUser(user);
 
-        return new ModelAndView("redirect:/login");
+        return "Success";
+    }
+
+
+    @PostMapping("/api/user/changePassword")
+    public String changeUserPassword(@Valid @ModelAttribute("userForm") ChangePasswordDTO passwordDTO,
+                                     HttpServletRequest request) {
+        log.info("Got change password  request: {}", passwordDTO.getToken());
+        if (!userService.isValidChangePasswordToken(passwordDTO.getToken())) {
+            return "You can't change password";
+        } else if (!passwordDTO.getPassword().equals(passwordDTO.getConfirmPassword())) {
+            return "Password and confirm password must be the same";
+        }
+
+        userService.changeUserPassword(passwordDTO);
+        return "Success";
     }
 
     @RequestMapping("/api/user/registration/resend/")
@@ -56,4 +71,20 @@ public class UserController {
         }
         return "Success";
     }
+
+
+    @RequestMapping("/api/user/send/changePasswordToken")
+    public String sendChangePasswordToken(@PathParam("email") String email) {
+        if (StringUtils.isBlank(email)) {
+            return "Please input email";
+        } else if (!userService.isEmailExist(email)) {
+            return "This email doesn't exist";
+        } else if (!userService.isConfirmedEmail(email)) {
+            return "You don't confirm your email. You can't change password";
+        }
+
+        userService.sendTokenForChangePassword(email);
+        return "Success";
+    }
+
 }

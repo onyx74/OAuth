@@ -1,13 +1,17 @@
 package com.vanya.service;
 
+import com.vanya.dao.ChangePasswordTokenRepository;
 import com.vanya.dao.UserRepository;
 import com.vanya.dao.VerificationTokenRepository;
+import com.vanya.dto.ChangePasswordDTO;
 import com.vanya.dto.RegistrationUserDto;
 import com.vanya.dto.UserDto;
+import com.vanya.events.OnChangePasswordEvent;
 import com.vanya.events.OnRegistrationCompleteEvent;
 import com.vanya.exception.EmailExistException;
 import com.vanya.exception.UserNameExistException;
 import com.vanya.model.UserEntity;
+import com.vanya.model.token.ChangePasswordToken;
 import com.vanya.model.token.VerificationToken;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -18,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -43,6 +48,9 @@ public class UserService {
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
 
+    @Autowired
+    private ChangePasswordTokenRepository passwordTokenRepository;
+
 
     public Optional<UserDto> getUserByName(String userName) {
         UserEntity user = userRepository.findUserEntitiesByUsername(userName);
@@ -59,6 +67,12 @@ public class UserService {
         if (userRepository.findUserEntitiesByEmail(user.getEmail()) != null) {
             throw new EmailExistException("This email already exist. Chose other email address");
         }
+    }
+
+    public void createChangePasswordTokenForUser(UserEntity user, String token) {
+        //todo make that resend verification token and change password tocken like comand patter
+        final ChangePasswordToken passwordToken = new ChangePasswordToken(token, user);
+        passwordTokenRepository.save(passwordToken);
     }
 
     public void registryNewUser(RegistrationUserDto user) {
@@ -79,9 +93,13 @@ public class UserService {
         verificationTokenRepository.save(myToken);
     }
 
+    public boolean isEmailExist(final String email) {
+        return userRepository.existsByEmail(email);
+    }
+
     public boolean isConfirmedEmail(final String email) {
         final Boolean userEnabled = userRepository.getUserEnabledByEmail(email);
-        if(userEnabled==null){
+        if (userEnabled == null) {
             throw new UserNameExistException("This email doesn't exist");
         }
         return userEnabled;
@@ -113,10 +131,25 @@ public class UserService {
         return VerificationToken.TOKEN_VALID;
     }
 
+    public void sendTokenForChangePassword(String email) {
+        UserEntity userEntity = userRepository.findUserEntitiesByEmail(email);
+        eventPublisher.publishEvent(new OnChangePasswordEvent(userEntity, getAppUrl()));
+    }
 
     private String getAppUrl() {
         return "http://" + appUrl;
     }
 
 
+    public boolean isValidChangePasswordToken(final String token) {
+        final ChangePasswordToken changeToken = passwordTokenRepository.findOneByToken(token);
+
+        return changeToken != null && changeToken.getExpiryDate().getTime() - System.currentTimeMillis() > 0;
+    }
+
+    public void changeUserPassword(final ChangePasswordDTO passwordDTO) {
+        final ChangePasswordToken changeToken = passwordTokenRepository.findOneByToken(passwordDTO.getToken());
+        userRepository.setNewPassword(passwordEncoder.encode(passwordDTO.getPassword()), changeToken.getUserId());
+        passwordTokenRepository.delete(changeToken);
+    }
 }

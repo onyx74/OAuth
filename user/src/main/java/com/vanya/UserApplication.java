@@ -27,7 +27,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableOAuth2Client
 @PropertySource({"email.properties"})
-@ComponentScan({"com.vanya.*","com.vanya.validation.validators"})
+@ComponentScan({"com.vanya.*", "com.vanya.validation.validators"})
 public class UserApplication extends ResourceServerConfigurerAdapter {
 
     public static void main(String[] args) {
@@ -39,7 +39,8 @@ public class UserApplication extends ResourceServerConfigurerAdapter {
         http.csrf().disable().formLogin().loginPage("/login").permitAll()
             .and()
             .authorizeRequests()
-            .antMatchers("/reader", "/api/user/{userName}", "/api/user", "/api/user/css/**", "/api/user/js/**"
+            .antMatchers("/reader", "/api/user/{userName}",
+                         "/api/user/registration/success", "/api/user", "/api/user/css/**", "/api/user/js/**"
                     , "/api/user/registration/resend/**").permitAll();
 
     }

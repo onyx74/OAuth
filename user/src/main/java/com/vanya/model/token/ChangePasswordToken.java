@@ -26,9 +26,7 @@ public class ChangePasswordToken {
 
     private String token;
 
-    @OneToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "user_id", foreignKey = @ForeignKey(name = "FK_USER"))
-    private UserEntity user;
+    private long userId;
 
     private Date expiryDate;
 
@@ -44,7 +42,7 @@ public class ChangePasswordToken {
 
     public ChangePasswordToken(final String token, final UserEntity user) {
         this.token = token;
-        this.user = user;
+        this.userId = user.getId();
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 

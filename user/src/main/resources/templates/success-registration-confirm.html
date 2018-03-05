@@ -35,7 +35,16 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <h3 style="color:green;" align="center">You registration token was send! Confirm it.</h3>
+        <div th:if="${result == 'invalidToken'}">
+            <p class="text-danger"  style="color:red;">You send invalid token.</p>
+        </div>
+        <div th:if="${result == 'expired'}">
+            <p class="text-danger"  style="color:red;">Your token expired. Resend you confirmation token.</p>
+        </div>
+        <div th:if="${result == 'valid'}">
+            <h3 style="color:green;" align="center">Your email confirmed. Welcome!</h3>
+        </div>
+
     </div>
     <!-- /.login-box-body -->
 </div>

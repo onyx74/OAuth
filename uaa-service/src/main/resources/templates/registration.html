@@ -72,9 +72,6 @@
                 </div>
                 <p class="g-recaptcha-text"><strong>I am not a robot</strong></p>
             </div>
-            <span id="nameError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
-            <span id="passwordError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
-            <span id="emailError" class="text-danger col-xs-12" style="display:none;color:red;"></span>
             <span id="error0" name="error" class="text-danger col-xs-12" style="color:red;"></span>
             <span id="error1" name="error1" class="text-danger col-xs-12" style="color:red;"></span>
             <span id="error2" name="error2" class="text-danger col-xs-12" style="color:red;"></span>
@@ -116,47 +113,7 @@
 <script src="css/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="css/icheck.min.js"></script>
-
-<script>
-    /*<![CDATA[*/
-    function registerNewUser(event) {
-        var formData = $('form').serialize();
-        $.ajax({
-            url: '/api/user/',
-            type: 'POST',
-            data: formData,
-            success: function (res) {
-                alert("asdasd");
-            },
-            error: function (request, status, error) {
-                $('#afterLine').show();
-                if(request.responseJSON.errors){
-                    for (var i = 0; i < request.responseJSON.errors.length; ++i) {
-                        var z=request.responseJSON.errors[i];
-                        $('#error'+i).text(z.defaultMessage);
-                    }
-                }else {
-                    alert(request);
-                    $('#error').text(request.responseJSON.message);
-                }
-            }
-        });
-
-    }
-
-    function validate() {
-        var password = $("#password").value;
-        var confirmPassword = $("#confirmPassword").value;
-        if (password !== confirmPassword) {
-            alert("Passwords do not match.");
-            return false;
-        }
-        return true;
-    }
-    /*]]>*/
-</script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 <script src="js/vendor/bootstrap.min.js"></script>
 
@@ -167,5 +124,45 @@
 <script src="css/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="css/icheck.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script>
+    /*<![CDATA[*/
+    function registerNewUser(event) {
+        var formData = $('form').serialize();
+        $.ajax({
+            url: '/api/user/',
+            type: 'POST',
+            data: formData,
+            success: function (res) {
+                window.location.href = "/api/user/registration/success"
+            },
+            error: function (request, status, error) {
+                z = false;
+                $('#afterLine').show();
+                for(var i=0;i<4;++i){
+                    $('#error' + i).text("");
+                }
+                if (request.responseJSON && request.responseJSON.errors) {
+
+                    for (var i = 0; i < request.responseJSON.errors.length; ++i) {
+                        var z = request.responseJSON.errors[i];
+                        $('#error' + i).text(z.defaultMessage);
+                    }
+                } else {
+                    if(request.responseJSON) {
+                        $('#error0').text(request.responseJSON.message);
+                    }else{
+                        window.location.href = "/api/user/registration/success"
+                    }
+                }
+
+            }
+        });
+    }
+
+    /*]]>*/
+</script>
+
 </body>
 </html>
