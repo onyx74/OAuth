@@ -27,10 +27,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <spring-cloud-dependencies.version>Edgware.RELEASE</spring-cloud-dependencies.version>
-        <spring.cloud.version>1.4.3.RELEASE</spring.cloud.version>
+        <spring.cloud.version>1.5.1.RELEASE</spring.cloud.version>
         <spring.project.version>1.5.1.RELEASE</spring.project.version>
-
-        <spring.boot.starter.web.version>1.4.0.RELEASE</spring.boot.starter.web.version>
+        <spring-cloud-starter.version>1.4.3.RELEASE</spring-cloud-starter.version>
+        <spring.boot.starter.web.version>1.5.0.RELEASE</spring.boot.starter.web.version>
         <guava.version>21.0</guava.version>
         <postgres.version>9.4.1212</postgres.version>
         <model.mapper.version>0.7.4</model.mapper.version>
@@ -47,17 +47,17 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-zuul</artifactId>
-                <version>${spring.cloud.version}</version>
+                <version>${spring-cloud-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-feign</artifactId>
-                <version>${spring.cloud.version}</version>
+                <version>${spring-cloud-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-eureka</artifactId>
-                <version>${spring.cloud.version}</version>
+                <version>${spring-cloud-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
