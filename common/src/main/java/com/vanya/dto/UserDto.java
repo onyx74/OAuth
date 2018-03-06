@@ -5,15 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.sql.Date;
 
 @Getter
 @Setter
 public class UserDto implements UserDetails {
+
     private Long id;
 
     private String username;
@@ -26,12 +28,15 @@ public class UserDto implements UserDetails {
     private String surname;
 
     private String pathToPhoto;
-    @JsonIgnore
-    private LocalDate birthDate;
-    @JsonIgnore
-    private LocalDate createdAt;
+    @JsonFormat
+            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date birthDate;
+    @JsonFormat
+            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date createdAt;
 
-    private GrantedAuthority authorities;
+    @JsonIgnore
+    private SimpleGrantedAuthority authorities;
 
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
@@ -42,7 +47,7 @@ public class UserDto implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(authorities);
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

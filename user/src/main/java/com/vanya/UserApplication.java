@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @author Ivan Hladush
@@ -39,12 +40,15 @@ public class UserApplication extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.formLogin().loginPage("/login").permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/reader", "/api/user/{userName}",
-                        "/api/user/registration/success", "/api/user", "/api/user/css/**", "/api/user/js/**"
-                        , "/api/user/registration/resend/**").permitAll()
-                .antMatchers("/api/user/test").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')");
+            .and()
+            .authorizeRequests()
+            .antMatchers("/reader", "/api/user/{userName}","/**",
+                         "/api/user/registration/success", "/api/user", "/api/user/css/**", "/api/user/js/**"
+                    , "/api/user/registration/resend/**").permitAll()
+            .and()
+            .logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/");
 
     }
 

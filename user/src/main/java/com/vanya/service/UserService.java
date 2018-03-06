@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -77,7 +78,7 @@ public class UserService {
     public void registryNewUser(RegistrationUserDto user) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(user.getUsername());
-        userEntity.setCreatedAt(LocalDate.now());
+        userEntity.setCreatedAt(new Date(System.currentTimeMillis()));
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntity.setEmail(user.getEmail());
 

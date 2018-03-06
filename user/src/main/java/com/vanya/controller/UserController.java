@@ -29,7 +29,6 @@ public class UserController {
         return userByName.orElse(null);
     }
 
-    @PreAuthorize ("hasRole('ROLE_USER')")
     @GetMapping("/api/user/test/asd")
     public String testController() {
         return "Test";

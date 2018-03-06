@@ -9,9 +9,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -33,8 +33,8 @@ public class UserEntity implements UserDetails {
     private String pathToPhoto;
 
 
-    private LocalDate createdAt;
-    private LocalDate birthDate;
+    private Date createdAt;
+    private Date birthDate;
 
     private GrantedAuthority authorities;
 

@@ -33,6 +33,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -102,18 +103,22 @@ public class UaaServiceApplication extends WebMvcConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
 
             http.csrf().disable()
-                    .formLogin().loginPage("/login")
-                    .failureHandler(authenticationFailureHandler).permitAll()
-                    .and()
+                .formLogin().loginPage("/login")
+                .failureHandler(authenticationFailureHandler).permitAll()
+                .and()
 
-                    .httpBasic().and()
-                    .requestMatchers()
-                    //specify urls handled
-                    .and()
-                    .authorizeRequests()
-                    .antMatchers("/**")
-                    .permitAll()
-                    .anyRequest().authenticated();
+                .httpBasic().and()
+                .requestMatchers()
+                //specify urls handled
+                .and()
+                .authorizeRequests()
+                .antMatchers("/**")
+                .permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/");
         }
     }
 
@@ -137,11 +142,11 @@ public class UaaServiceApplication extends WebMvcConfigurerAdapter {
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             clients.inMemory()
-                    .withClient("acme")
-                    .secret("acmesecret")
-                    .authorizedGrantTypes("authorization_code", "refresh_token", "password")
-                    .autoApprove(true)
-                    .scopes("openid");
+                   .withClient("acme")
+                   .secret("acmesecret")
+                   .authorizedGrantTypes("authorization_code", "refresh_token", "password")
+                   .autoApprove(true)
+                   .scopes("openid");
         }
 
         @Override
