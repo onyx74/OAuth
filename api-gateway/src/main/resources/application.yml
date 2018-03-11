@@ -29,6 +29,10 @@ zuul:
       sensitiveHeaders:
       path: /uaa/**
       stripPrefix: false
+    ui-service:
+      sensitiveHeaders:
+      path: /**
+      stripPrefix: false
   add-proxy-headers: true
   host:
     connect-timeout-millis: 120000
