@@ -32,7 +32,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Home Page</title>
+    <title>Profile Page</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -63,18 +63,18 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img th:src="'users/photo/'+${user.pathToPhoto}" class="user-image" alt="User Image"/>
-                            <span class="hidden-xs"
-                                  th:text="${user.firstName} + ' ' + ${user.surname}">Alexander Pierce</span>
+                            <img id="header-photo" src="" class="user-image"
+                                 alt="User Image"/>
+                            <span id="header-span-info" class="hidden-xs"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img th:src="'users/photo/'+${user.pathToPhoto}" class="img-circle" alt="User Image"/>
+                                <img id="header-dropdown-photo" src="" class="img-circle" alt="User Image"/>
 
-                                <p th:text="${user.firstName} + ' ' + ${user.surname}"/>
+                                <p id="header-user-info"/>
                                 <p>
-                                    <small th:text="'Member since '+${user.createdAt}"/>
+                                    <small id="headerCreatedAt"/>
                                 </p>
                             </li>
                             <!--todo make this button in prutty collor-->
@@ -96,7 +96,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a onclick="loadProfile()" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="/profile"  class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
@@ -115,10 +115,10 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img th:src="'users/photo/'+${user.pathToPhoto}" class="img-circle" alt="User Image"/>
+                    <img id="left-photo" src="" class="img-circle" alt="User Image"/>
                 </div>
                 <div class="pull-left info">
-                    <p th:text="${user.firstName} + ' ' + ${user.surname}"/>
+                    <p id="info-user-name"/>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -236,9 +236,101 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Main content -->
-        <section id="mainDiv" class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
 
-        </section>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">User Profile</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 " align="center" style="position: relative;">
+                                    <img alt="User Pic"
+                                         id="userPic"
+                                         src="api/user/photo/anonymous.png"
+                                         class="img-lg-7 img-responsive"/>
+                                </div>
+
+                                <div class=" col-md-8 col-lg-8 ">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <tr>
+                                            <td>User Name:</td>
+                                            <td><p id="userName" text="User Name:"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>First Name:</p>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p id="firstName" text="User Name"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Surname:</p>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p id='surname' ttext="${user.surname}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Email:</p>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <p id='email' text="${user.email}"/>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <p>Phone Number:</p>
+                                            </td>
+                                            <td>
+                                                <p id='phoneNumber' text="${user.phoneNumber}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Birth Date:</p>
+                                            </td>
+                                            <td>
+                                                <p id="birthDate" text="${user.birthDate}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button  onclick="window.location.href='/editProfile';"
+                                                        class="btn btn-primary btn-md col-xs-12 col-sm-8">Edit my profile
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button   onclick="window.location.href='/changePassword';"
+                                                        class="btn btn-primary btn-md col-xs-12 col-sm-8">Change password
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -246,7 +338,7 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.4.0
         </div>
-        <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+        <strong>Copyright &copy; 2018<a href="/">Ivan Hladush</a>.</strong> All rights
         reserved.
     </footer>
 
@@ -404,6 +496,7 @@
 
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
+<script src="/js/user/user.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -417,6 +510,10 @@
 <script src="/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/js/demo.js"></script>
+
+
+<script> setTimeout(uploadBaseUserInformation(), 10);</script>
+<script> setTimeout(uploadProfileInformation(), 10);</script>
 </body>
 
 </html>

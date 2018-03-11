@@ -11,5 +11,13 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/profile")
+    public String getProfile() {
+        return "/profile/profile";
+    }
 
+    @GetMapping("/changePassword")
+    public String getChangePassword() {
+        return "/profile/changePassword";
+    }
 }

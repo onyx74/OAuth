@@ -2,12 +2,12 @@ package com.vanya.controller;
 
 import com.vanya.dto.ChangePasswordDTO;
 import com.vanya.dto.RegistrationUserDto;
+import com.vanya.dto.UpdatePasswordDTO;
 import com.vanya.dto.UserDto;
 import com.vanya.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,10 +63,14 @@ public class UserController {
             return "Password and confirm password must be the same";
         }
 
-        userService.changeUserPassword(passwordDTO);
+        userService.changeUserPasswordViaToken(passwordDTO);
         return "Success";
     }
 
+    @PostMapping("/api/user/{userId}/password")
+    public void changeUserPassword(@PathVariable long userId, @Valid UpdatePasswordDTO newPassword){
+        userService.changeUserPassword(newPassword,userId);
+    }
     @RequestMapping("/api/user/registration/resend/")
     public String resendRegistrationToken(@PathParam("email") String email) {
         if (userService.isConfirmedEmail(email)) {

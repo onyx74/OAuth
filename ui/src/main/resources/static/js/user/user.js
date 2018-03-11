@@ -1,3 +1,4 @@
+var userId;
 function uploadBaseUserInformation() {
     $.ajax({
         url: '/api/user/current',
@@ -10,6 +11,22 @@ function uploadBaseUserInformation() {
             $('#header-user-info').text(currentUser.firstName + ' ' + currentUser.surname);
             $('#headerCreatedAt').text("Member since " + currentUser.createdAt);
             $('#header-span-info').text(currentUser.firstName + ' ' + currentUser.surname);
+            userId=currentUser.id;
+        }
+    });
+}
+function uploadProfileInformation() {
+    $.ajax({
+        url: '/api/user/current',
+        type: 'GET',
+        success: function (currentUser) {
+            $('#userPic').attr('src', '/api/user/photo/' + currentUser.pathToPhoto);
+            $('#userName').text(currentUser.username);
+            $('#firstName').text(currentUser.firstName);
+            $('#surname').text(currentUser.surname);
+            $('#email').text(currentUser.email);
+            $('#phoneNumber').text(currentUser.phoneNumber);
+            $('#birthDate').text(currentUser.birthDate);
         }
     });
 }

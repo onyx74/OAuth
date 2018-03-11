@@ -5,6 +5,7 @@ import com.vanya.dao.UserRepository;
 import com.vanya.dao.VerificationTokenRepository;
 import com.vanya.dto.ChangePasswordDTO;
 import com.vanya.dto.RegistrationUserDto;
+import com.vanya.dto.UpdatePasswordDTO;
 import com.vanya.dto.UserDto;
 import com.vanya.events.OnChangePasswordEvent;
 import com.vanya.events.OnRegistrationCompleteEvent;
@@ -152,7 +153,7 @@ public class UserService {
         return changeToken != null && changeToken.getExpiryDate().getTime() - System.currentTimeMillis() > 0;
     }
 
-    public void changeUserPassword(final ChangePasswordDTO passwordDTO) {
+    public void changeUserPasswordViaToken(final ChangePasswordDTO passwordDTO) {
         final ChangePasswordToken changeToken = passwordTokenRepository.findOneByToken(passwordDTO.getToken());
         userRepository.setNewPassword(passwordEncoder.encode(passwordDTO.getPassword()), changeToken.getUserId());
         passwordTokenRepository.delete(changeToken);
@@ -162,5 +163,9 @@ public class UserService {
 
         return this.getUserByName(currentUserName).get();
 
+    }
+
+    public void changeUserPassword(UpdatePasswordDTO newPassword, long userId) {
+        userRepository.setNewPassword(passwordEncoder.encode(newPassword.getPassword()), userId);
     }
 }
