@@ -14,8 +14,6 @@ eureka:
     port: ${server.port}
   client:
     registerWithEureka: false
-    fetchRegistry: false
+    fetch-registry: false
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-  server:
-    waitTimeInMsWhenSyncEmpty: 0

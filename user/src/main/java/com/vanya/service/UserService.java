@@ -18,6 +18,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +53,7 @@ public class UserService {
 
     @Autowired
     private ChangePasswordTokenRepository passwordTokenRepository;
+    private Object currentUser;
 
 
     public Optional<UserDto> getUserByName(String userName) {
@@ -81,6 +84,8 @@ public class UserService {
         userEntity.setCreatedAt(new Date(System.currentTimeMillis()));
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntity.setEmail(user.getEmail());
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setSurname(user.getSurname());
 
         userEntity = userRepository.save(userEntity);
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(userEntity, getAppUrl()));
@@ -151,5 +156,11 @@ public class UserService {
         final ChangePasswordToken changeToken = passwordTokenRepository.findOneByToken(passwordDTO.getToken());
         userRepository.setNewPassword(passwordEncoder.encode(passwordDTO.getPassword()), changeToken.getUserId());
         passwordTokenRepository.delete(changeToken);
+    }
+
+    public UserDto getCurrentUser(String currentUserName) {
+
+        return this.getUserByName(currentUserName).get();
+
     }
 }

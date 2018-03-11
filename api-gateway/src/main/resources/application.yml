@@ -13,8 +13,6 @@ eureka:
   instance:
       hostname: localhost
       port: 8761
-      leaseRenewalIntervalInSeconds: 10
-      leaseExpirationDurationInSeconds: 20
   client:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
@@ -22,7 +20,7 @@ eureka:
 zuul:
   routes:
     user-service:
-      sensitiveHeaders:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /api/user/**
       stripPrefix: false
     uaa-service:
@@ -30,7 +28,7 @@ zuul:
       path: /uaa/**
       stripPrefix: false
     ui-service:
-      sensitiveHeaders:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /**
       stripPrefix: false
   add-proxy-headers: true

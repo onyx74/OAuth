@@ -21,7 +21,7 @@
         <module>uaa-service</module>
         <module>common</module>
         <module>user</module>
-        <module>uiservice</module>
+        <module>ui</module>
     </modules>
 
     <properties>

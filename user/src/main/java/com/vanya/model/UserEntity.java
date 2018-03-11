@@ -28,8 +28,8 @@ public class UserEntity implements UserDetails {
     private String email;
     private String phoneNumber;
 
-    private String firstName;
-    private String surname;
+    private String firstName="";
+    private String surname="";
     private String pathToPhoto;
 
 
@@ -46,6 +46,7 @@ public class UserEntity implements UserDetails {
 
     public UserEntity() {
         this.authorities = new SimpleGrantedAuthority("ROLE_USER");
+        this.pathToPhoto = "anonymous.png";
     }
 
     @Override

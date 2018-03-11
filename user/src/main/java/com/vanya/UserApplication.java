@@ -40,7 +40,7 @@ public class UserApplication extends ResourceServerConfigurerAdapter {
         http.formLogin().loginPage("/login").permitAll()
             .and()
             .authorizeRequests()
-            .antMatchers("/reader", "/api/user/{userName}","/**",
+            .antMatchers("/reader", "/api/user/{userName}/information","/**",
                          "/api/user/registration/success", "/api/user", "/api/user/css/**", "/api/user/js/**"
                     , "/api/user/registration/resend/**").permitAll()
             .and()

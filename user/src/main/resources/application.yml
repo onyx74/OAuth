@@ -38,8 +38,6 @@ support:
 eureka:
   instance:
     appname: user-service
-    leaseRenewalIntervalInSeconds: 10
-    leaseExpirationDurationInSeconds: 20
   client:
     fetchRegistry: true
     serviceUrl:

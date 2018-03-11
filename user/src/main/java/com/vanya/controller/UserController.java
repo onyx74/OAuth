@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/api/user/{userName}")
+    @GetMapping("/api/user/{userName}/information")
     public UserDto getUserDetails(@PathVariable String userName) {
         Optional<UserDto> userByName = userService.getUserByName(userName);
         return userByName.orElse(null);
@@ -54,8 +55,7 @@ public class UserController {
 
 
     @PostMapping("/api/user/changePassword")
-    public String changeUserPassword(@Valid @ModelAttribute("userForm") ChangePasswordDTO passwordDTO,
-                                     HttpServletRequest request) {
+    public String changeUserPassword(@Valid @ModelAttribute("userForm") ChangePasswordDTO passwordDTO) {
         log.info("Got change password  request: {}", passwordDTO.getToken());
         if (!userService.isValidChangePasswordToken(passwordDTO.getToken())) {
             return "You can't change password";
@@ -90,6 +90,12 @@ public class UserController {
 
         userService.sendTokenForChangePassword(email);
         return "Success";
+    }
+
+    @GetMapping("/api/user/current")
+    public UserDto getCurrentUser() {
+        String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userService.getCurrentUser(currentUserName);
     }
 
 }

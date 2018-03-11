@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "user-service")
 public interface UserClient {
 
-    @RequestMapping(value = "/api/user/{userName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/user/{userName}/information", method = RequestMethod.GET)
     UserDto getUserDto(@PathVariable("userName") String userName);
 }
