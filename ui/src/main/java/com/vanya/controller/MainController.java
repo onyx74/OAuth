@@ -16,6 +16,11 @@ public class MainController {
         return "error";
     }
 
+    @GetMapping("/404")
+    public String getPageNotFound() {
+        return "404";
+    }
+
     @GetMapping("/profile")
     public String getProfile() {
         return "/profile/profile";
