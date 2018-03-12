@@ -30,3 +30,17 @@ function uploadProfileInformation() {
         }
     });
 }
+function uploadInformationForEditProfile() {
+    $.ajax({
+        url: '/api/user/current',
+        type: 'GET',
+        success: function (currentUser) {
+            $('#userPicEdit').attr('src', '/api/user/photo/' + currentUser.pathToPhoto);
+            $('#firstNameEdit').val(currentUser.firstName);
+            $('#surnameEdit').val(currentUser.surname);
+            $('#emailEdit').val(currentUser.email);
+            $('#phoneNumberEdit').val(currentUser.phoneNumber);
+            $('#birthDateEdit').val(currentUser.birthDate);
+        }
+    });
+}

@@ -3,10 +3,7 @@ package com.vanya.service;
 import com.vanya.dao.ChangePasswordTokenRepository;
 import com.vanya.dao.UserRepository;
 import com.vanya.dao.VerificationTokenRepository;
-import com.vanya.dto.ChangePasswordDTO;
-import com.vanya.dto.RegistrationUserDto;
-import com.vanya.dto.UpdatePasswordDTO;
-import com.vanya.dto.UserDto;
+import com.vanya.dto.*;
 import com.vanya.events.OnChangePasswordEvent;
 import com.vanya.events.OnRegistrationCompleteEvent;
 import com.vanya.exception.EmailExistException;
@@ -167,5 +164,18 @@ public class UserService {
 
     public void changeUserPassword(UpdatePasswordDTO newPassword, long userId) {
         userRepository.setNewPassword(passwordEncoder.encode(newPassword.getPassword()), userId);
+    }
+
+    public void setNewPhoto(long userId, String pathToPhoto) {
+        userRepository.setPassToPhoto(userId, pathToPhoto);
+    }
+
+    public void changeUser(long userId, UpdateUserDto newUser) {
+        userRepository.updateUser(userId,
+                newUser.getEmail(),
+                newUser.getPhoneNumber(),
+                newUser.getFirstName(),
+                newUser.getSurname(),
+                newUser.getBirthDate());
     }
 }

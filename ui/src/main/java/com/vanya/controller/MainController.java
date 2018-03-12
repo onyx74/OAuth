@@ -11,6 +11,11 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/error")
+    public String getError() {
+        return "error";
+    }
+
     @GetMapping("/profile")
     public String getProfile() {
         return "/profile/profile";
@@ -19,5 +24,10 @@ public class MainController {
     @GetMapping("/changePassword")
     public String getChangePassword() {
         return "/profile/changePassword";
+    }
+
+    @GetMapping("/editProfile")
+    public String getEditProfile() {
+        return "/profile/editProfile";
     }
 }

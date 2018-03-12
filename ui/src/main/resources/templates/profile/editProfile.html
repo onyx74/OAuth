@@ -32,7 +32,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Change Password</title>
+    <title>Home Page</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -119,7 +119,6 @@
                 </div>
                 <div class="pull-left info">
                     <p id="info-user-name"/>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
             <!-- /.search form -->
@@ -236,65 +235,126 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <br/>
-        <br/>
         <!-- Main content -->
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
 
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Change Password</h3>
+                            <h3 class="panel-title">Edit Profile</h3>
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class=" col-md-8 col-lg-8 ">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-sm-offset-3">
-                                            <form method="post" id="passwordForm" commandName="userChangePasswordForm">
-                                                <input type="password" class="input-md form-control" name="password"
-                                                       id="password" placeholder="New Password" autocomplete="off"/>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                <span id="8char" class="glyphicon glyphicon-remove"
-                                                      style="color:#FF0004;"></span> 8 Characters Long<br/>
-                                                        <span id="ucase" class="glyphicon glyphicon-remove"
-                                                              style="color:#FF0004;"></span> One Uppercase Letter
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                <span id="lcase" class="glyphicon glyphicon-remove"
-                                                      style="color:#FF0004;"></span> One Lowercase Letter<br/>
-                                                        <span id="num" class="glyphicon glyphicon-remove"
-                                                              style="color:#FF0004;"></span> One Number
-                                                    </div>
-                                                </div>
-                                                <br/>
-                                                <input type="password" class="input-md form-control"
-                                                       name="confirmPassword"
-                                                       id="confirmPassword" placeholder="Repeat Password"
-                                                       autocomplete="off"/>
+                                <div class="col-md-4 col-lg-4 " align="center" style="position: relative;">
+                                    <img id="userPicEdit" alt="User Pic"
+                                         class="img-lg-7 img-responsive"/>
+                                    <br/>
+                                    <button class="btn btn-lg-3 btn-danger" onclick="deleteCurrentPhoto()">Delete
+                                        current
+                                        image
+                                    </button>
+                                </div>
 
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                <span id="pwmatch" class="glyphicon glyphicon-remove"
-                                                      style="color:#FF0004;"></span> Passwords Match
+                                <div class=" col-md-8 col-lg-8 ">
+                                    <form id="form" name='updateForm' method='POST'
+                                          commandName="userUpdateForm">
+                                        <table class="table table-user-information">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>First Name:</p>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <input id="firstNameEdit" type='text' th:required="required"
+                                                               name='firstName'
+                                                        />
                                                     </div>
-                                                </div>
-                                                <br/>
-                                                <div class="row">
-                                                    <input onclick="changePassword()"
-                                                           type="button"
-                                                           class="col-xs-5 btn btn-primary btn-load btn-md"
-                                                           data-loading-text="Changing Password..."
-                                                           value="Change Password"/>
-                                                    <div class="col-xs-2"/>
-                                                    <a onclick="window.location.href='/profile';"
-                                                       class="col-xs-5 btn btn-success btn-load btn-md">Back</a>
-                                                </div>
-                                            </form>
-                                        </div><!--/col-sm-6-->
-                                    </div><!--/row-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p>Surname:</p>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <input id="surnameEdit" type='text' th:required="required"
+                                                               name='surname'
+                                                        />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p>Email:</p>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        <input id="emailEdit" type='text' th:required="required"
+                                                               name='email'/>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <p>Phone Number:</p>
+                                                </td>
+                                                <td>
+                                                    <input type="tel" id="phoneNumberEdit" name="phoneNumber"
+                                                           pattern="2[0-9]{3}-[0-9]{3}"/>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p>Birth Date:</p>
+                                                </td>
+                                                <td>
+                                                    <input id="birthDateEdit" type="date" name="birthDate"/>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <tr>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="row">
+                                        <form id="upload-file-form">
+                                            <div class="col-md-4 col-lg-4">
+                                                Select File to Upload:
+                                            </div>
+                                            <div class="col-md-4 col-lg-4">
+                                                <input id="upload-file-input" type="file" name="uploadfile" accept="*"/>
+                                            </div>
+                                        </form>
+                                        <br/>
+                                    </div>
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <input onclick="editProfile()"
+                                                       type="button"
+                                                       class="col-xs-5 btn btn-primary btn-load btn-md"
+                                                       value="Edit Profile"/>
+                                            </td>
+                                            <td>
+                                                <a onclick="window.location.href='/profile';"
+                                                   class="col-xs-5 btn btn-success btn-load btn-md">Back</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+
                                 </div>
                             </div>
                         </div>
@@ -484,88 +544,46 @@
 
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
+<script> setTimeout(uploadInformationForEditProfile(), 10);</script>
 <script>
-    var ucase = new RegExp("[A-Z]+");
-    var lcase = new RegExp("[a-z]+");
-    var num = new RegExp("[0-9]+");
+    function deleteCurrentPhoto(){
+        var photoUrl = "/api/user/" + userId + "/photo/default";
+        $.ajax({
+            url: photoUrl,
+            type: "POST",
+            success: function (res) {
+                uploadBaseUserInformation();
+                uploadInformationForEditProfile();
 
-    function changePassword() {
-        var pass=$("#password").val();
-        if ($("#password").val().length >= 8) {
-            if (ucase.test($("#password").val())) {
-                if (lcase.test($("#password").val())) {
-                    if (num.test($("#password").val())) {
-                        if ($("#password").val() == $("#confirmPassword").val()) {
-                            var formData = $('#passwordForm').serialize();
-                            var url="/api/user/"+userId+"/password";
-                            $.ajax({
-                                url: url,
-                                type: 'POST',
-                                data: formData,
-                                success: function (res) {
-                                    window.location.href='/';
-                                }
-
-                            });
-                        }
-                    }
-                }
             }
-        }
+        });
     }
-    $("input[type=password]").keyup(function () {
+    function editProfile() {
 
+        var formData = $('#form').serialize();
+        var photoUrl = "/api/user/" + userId + "/photo";
+        $.ajax({
+            url: photoUrl,
+            type: "POST",
+            data: new FormData($('#upload-file-form')[0]),
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (res) {
+            }
+        });
+        var url = "/api/user/" + userId;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            success: function (res) {
+                window.location.href = '/';
+            }
 
-        if ($("#password").val().length >= 8) {
-            $("#8char").removeClass("glyphicon-remove");
-            $("#8char").addClass("glyphicon-ok");
-            $("#8char").css("color", "#00A41E");
-        } else {
-            $("#8char").removeClass("glyphicon-ok");
-            $("#8char").addClass("glyphicon-remove");
-            $("#8char").css("color", "#FF0004");
-        }
-
-        if (ucase.test($("#password").val())) {
-            $("#ucase").removeClass("glyphicon-remove");
-            $("#ucase").addClass("glyphicon-ok");
-            $("#ucase").css("color", "#00A41E");
-        } else {
-            $("#ucase").removeClass("glyphicon-ok");
-            $("#ucase").addClass("glyphicon-remove");
-            $("#ucase").css("color", "#FF0004");
-        }
-
-        if (lcase.test($("#password").val())) {
-            $("#lcase").removeClass("glyphicon-remove");
-            $("#lcase").addClass("glyphicon-ok");
-            $("#lcase").css("color", "#00A41E");
-        } else {
-            $("#lcase").removeClass("glyphicon-ok");
-            $("#lcase").addClass("glyphicon-remove");
-            $("#lcase").css("color", "#FF0004");
-        }
-
-        if (num.test($("#password").val())) {
-            $("#num").removeClass("glyphicon-remove");
-            $("#num").addClass("glyphicon-ok");
-            $("#num").css("color", "#00A41E");
-        } else {
-            $("#num").removeClass("glyphicon-ok");
-            $("#num").addClass("glyphicon-remove");
-            $("#num").css("color", "#FF0004");
-        }
-
-        if ($("#password").val() == $("#confirmPassword").val()) {
-            $("#pwmatch").removeClass("glyphicon-remove");
-            $("#pwmatch").addClass("glyphicon-ok");
-            $("#pwmatch").css("color", "#00A41E");
-        } else {
-            $("#pwmatch").removeClass("glyphicon-ok");
-            $("#pwmatch").addClass("glyphicon-remove");
-            $("#pwmatch").css("color", "#FF0004");
-        }
-    });
+        });
+    }
 </script>
 </body>
 

@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<UserEntity, Long> {
 
@@ -32,6 +35,12 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
     @Query("UPDATE UserEntity u SET u.enabled = true WHERE u.id = :userId")
     int enableUser(@Param("userId") Long userId);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE UserEntity u SET u.email = ?2, u.phoneNumber=?3, u.firstName=?4, u.surname=?5,u.birthDate=?6" +
+            " WHERE u.id = ?1")
+    int updateUser(long userId, String email, String phoneNumber, String firstName, String surname, Date birthDate);
+
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query("UPDATE UserEntity  u SET u.password= ?1 WHERE u.id= ?2")
@@ -39,8 +48,8 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
 
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query("UPDATE UserEntity  u SET u.pathToPhoto= ?1 WHERE u.username= ?2")
-    int setPassToPhoto(String pathToPhoto, String userName);
+    @Query("UPDATE UserEntity  u SET u.pathToPhoto= ?2 WHERE u.id= ?1")
+    int setPassToPhoto(long userId, String pathToPhoto);
 
     boolean findByEmailEqualsAndEnabledTrue(String email);
 }
