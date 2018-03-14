@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         , "/api/user/{userName}/information", "/api/user/", "/api/user/changePassword",
                         "/api/user/registration/resend/",
                         "/api/user/send/changePasswordToken", "/api/user/registration/confirm", "/api/user/password",
-                        "/api/user/registration/success", "api/user/resendRegistrationToken",
+                        "/api/user/registration/success", "/api/user/resendRegistrationToken",
                         "/api/user/resendRegistrationToken/success",
                         "/api/user/forgotPassword", "/api/user/success/sendChangePassword",
                         "/api/user/changePassword/success"

@@ -16,11 +16,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import java.sql.Date;
@@ -51,8 +55,23 @@ public class UserService {
 
     @Autowired
     private ChangePasswordTokenRepository passwordTokenRepository;
-    private Object currentUser;
 
+//    @PostConstruct
+//    public void afterPropertiesSet() {
+//        for(int i=0;i<100;++i) {
+//            UserEntity userEntity = new UserEntity();
+//            userEntity.setUsername("VVVV"+i);
+//            userEntity.setPassword(passwordEncoder.encode("qweqwe"+i));
+//            userEntity.setEmail("gladush97@gmail.com"+i);
+//            userEntity.setCreatedAt(new Date(System.currentTimeMillis()));
+//            userEntity.setFirstName("firstName"+i);
+//            userEntity.setSurname("Surname"+i);
+//            userEntity.setAuthorities(new SimpleGrantedAuthority("ROLE_USER"));
+//            userEntity.setPathToPhoto("user-1.jpg");
+//            userEntity.setEnabled(true);
+//            userRepository.save(userEntity);
+//        }
+//    }
 
     public Optional<UserDto> getUserByName(String userName) {
         UserEntity user = userRepository.findUserEntitiesByUsername(userName);
@@ -177,5 +196,10 @@ public class UserService {
                 newUser.getFirstName(),
                 newUser.getSurname(),
                 newUser.getBirthDate());
+    }
+
+    public Page<UserDto> findAllPageable(PageRequest pageable) {
+        return
+                userRepository.findAll(pageable).map(x -> mapper.map(x, UserDto.class));
     }
 }

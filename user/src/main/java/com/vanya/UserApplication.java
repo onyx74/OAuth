@@ -42,7 +42,7 @@ public class UserApplication extends ResourceServerConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/reader", "/api/user/{userName}/information","/**",
                          "/api/user/registration/success", "/api/user", "/api/user/css/**", "/api/user/js/**"
-                    , "/api/user/registration/resend/**").permitAll()
+                    , "/api/user/registration/resend/**", "/api/user/resendRegistrationToken").permitAll()
             .and()
             .logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

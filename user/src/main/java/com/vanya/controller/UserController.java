@@ -3,12 +3,17 @@ package com.vanya.controller;
 import com.vanya.dto.*;
 import com.vanya.service.PhotoService;
 import com.vanya.service.UserService;
+import com.vanya.utils.Pager;
+import com.vanya.utils.PaginationUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +33,22 @@ public class UserController {
 
     @Autowired
     private PhotoService photoService;
+
+    @GetMapping("/api/user")
+    public ResponseEntity<?> getAllUsers(@RequestParam("page") Optional<Integer> page,
+                                         @RequestParam("pageSize") Optional<Integer> pageSize) {
+        int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
+        int evalPage = (page.orElse(0) < 1) ? PaginationUtils.INITIAL_PAGE_SIZE : page.get() - 1;
+
+        Page<UserDto> users = userService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        Pager pager = new Pager(users.getTotalPages(), users.getNumber(), PaginationUtils.BUTTONS_TO_SHOW);
+        PagebleUserDTO response = new PagebleUserDTO();
+        response.setEvalPage(evalPage);
+        response.setEvalPageSize(evalPageSize);
+        response.setUsers(users);
+        response.setPager(pager);
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/api/user/{userName}/information")
     public UserDto getUserDetails(@PathVariable String userName) {
@@ -95,7 +116,7 @@ public class UserController {
 
     @PostMapping("/api/user/{userId}/photo/default")
     public ResponseEntity<?> setDefaultPathToPhoto(@PathVariable long userId) {
-        userService.setNewPhoto(userId,"anonymous.png");
+        userService.setNewPhoto(userId, "anonymous.png");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

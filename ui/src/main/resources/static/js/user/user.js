@@ -44,3 +44,67 @@ function uploadInformationForEditProfile() {
         }
     });
 }
+
+function deleteCurrentPhoto(){
+    var photoUrl = "/api/user/" + userId + "/photo/default";
+    $.ajax({
+        url: photoUrl,
+        type: "POST",
+        success: function (res) {
+            uploadBaseUserInformation();
+            uploadInformationForEditProfile();
+
+        }
+    });
+}
+function editProfile() {
+
+    var formData = $('#form').serialize();
+    var photoUrl = "/api/user/" + userId + "/photo";
+    $.ajax({
+        url: photoUrl,
+        type: "POST",
+        data: new FormData($('#upload-file-form')[0]),
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (res) {
+        }
+    });
+    var url = "/api/user/" + userId;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        success: function (res) {
+            window.location.href = '/';
+        }
+
+    });
+}
+
+function changePassword() {
+    var pass=$("#password").val();
+    if ($("#password").val().length >= 8) {
+        if (ucase.test($("#password").val())) {
+            if (lcase.test($("#password").val())) {
+                if (num.test($("#password").val())) {
+                    if ($("#password").val() == $("#confirmPassword").val()) {
+                        var formData = $('#passwordForm').serialize();
+                        var url="/api/user/"+userId+"/password";
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: formData,
+                            success: function (res) {
+                                window.location.href='/';
+                            }
+
+                        });
+                    }
+                }
+            }
+        }
+    }
+}

@@ -32,7 +32,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Home Page</title>
+    <title>Edit Profile</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -125,7 +125,7 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="treeview">
-                    <a onclick="loadAllUsers()">
+                    <a href="/users">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -137,7 +137,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a onclick="loadAllUsers()">
+                    <a href="/users">
                         <i class="fa fa-user-o"></i>
                         <span>Users </span>
                         <span class="pull-right-container"></span>
@@ -546,44 +546,7 @@
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
 <script> setTimeout(uploadInformationForEditProfile(), 10);</script>
 <script>
-    function deleteCurrentPhoto(){
-        var photoUrl = "/api/user/" + userId + "/photo/default";
-        $.ajax({
-            url: photoUrl,
-            type: "POST",
-            success: function (res) {
-                uploadBaseUserInformation();
-                uploadInformationForEditProfile();
 
-            }
-        });
-    }
-    function editProfile() {
-
-        var formData = $('#form').serialize();
-        var photoUrl = "/api/user/" + userId + "/photo";
-        $.ajax({
-            url: photoUrl,
-            type: "POST",
-            data: new FormData($('#upload-file-form')[0]),
-            enctype: 'multipart/form-data',
-            processData: false,
-            contentType: false,
-            cache: false,
-            success: function (res) {
-            }
-        });
-        var url = "/api/user/" + userId;
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: formData,
-            success: function (res) {
-                window.location.href = '/';
-            }
-
-        });
-    }
 </script>
 </body>
 
