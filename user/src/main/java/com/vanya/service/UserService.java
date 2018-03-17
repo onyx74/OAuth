@@ -78,7 +78,7 @@ public class UserService {
         if (user == null) {
             return Optional.empty();
         }
-        return Optional.of(mapper.map(user, UserDto.class));
+        return Optional.ofNullable(mapper.map(user, UserDto.class));
     }
 
     public void validateNewUser(RegistrationUserDto user) {
@@ -176,9 +176,12 @@ public class UserService {
     }
 
     public UserDto getCurrentUser(String currentUserName) {
-
         return this.getUserByName(currentUserName).get();
+    }
 
+    public long getCurrentUserId() {
+        String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return this.getUserByName(currentUserName).get().getId();
     }
 
     public void changeUserPassword(UpdatePasswordDTO newPassword, long userId) {
@@ -201,5 +204,13 @@ public class UserService {
     public Page<UserDto> findAllPageable(PageRequest pageable) {
         return
                 userRepository.findAll(pageable).map(x -> mapper.map(x, UserDto.class));
+    }
+
+    public Optional<UserDto> getUser(long userId) {
+        UserEntity user = userRepository.findOne(userId);
+        if (user == null) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(mapper.map(user, UserDto.class));
     }
 }

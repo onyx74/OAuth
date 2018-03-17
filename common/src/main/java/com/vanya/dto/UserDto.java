@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.sql.Date;
 
+//todo create packages
 @Getter
 @Setter
 public class UserDto implements UserDetails {

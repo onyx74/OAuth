@@ -1,6 +1,7 @@
 package com.vanya.controller;
 
 import com.vanya.dto.*;
+import com.vanya.service.FriendsService;
 import com.vanya.service.PhotoService;
 import com.vanya.service.UserService;
 import com.vanya.utils.Pager;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +22,9 @@ import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -34,19 +36,50 @@ public class UserController {
     @Autowired
     private PhotoService photoService;
 
+    @Autowired
+    private FriendsService friendsService;
+
     @GetMapping("/api/user")
     public ResponseEntity<?> getAllUsers(@RequestParam("page") Optional<Integer> page,
                                          @RequestParam("pageSize") Optional<Integer> pageSize) {
         int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
         int evalPage = (page.orElse(0) < 1) ? PaginationUtils.INITIAL_PAGE_SIZE : page.get() - 1;
 
-        Page<UserDto> users = userService.findAllPageable(new PageRequest(evalPage, evalPageSize));
-        Pager pager = new Pager(users.getTotalPages(), users.getNumber(), PaginationUtils.BUTTONS_TO_SHOW);
-        PagebleUserDTO response = new PagebleUserDTO();
+        final Page<UserDto> users = userService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        final Pager pager = new Pager(users.getTotalPages(), users.getNumber(), PaginationUtils.BUTTONS_TO_SHOW);
+        final PagebleUserDTO response = new PagebleUserDTO();
+        long currentUserId = userService.getCurrentUserId();
+        List<Long> friends = users.getContent()
+                .stream()
+                .map(user -> {
+                    if (friendsService.isFriend(currentUserId, user.getId())) {
+                        return user.getId();
+                    } else {
+                        return -1L;
+                    }
+                })
+                .collect(Collectors.toList());
+
         response.setEvalPage(evalPage);
         response.setEvalPageSize(evalPageSize);
         response.setUsers(users);
         response.setPager(pager);
+
+        response.setFriends(friends);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/api/user/{userId}")
+    public ResponseEntity<?> getUser(@PathVariable("userId") long userId) {
+        final UserDto user = userService.getUser(userId).orElseThrow(RuntimeException::new);
+        final UserDto currentUser = userService.getUserByName(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(RuntimeException::new);//todo replace on only getIdmethod
+
+        final boolean isFriend = friendsService.isFriend(currentUser.getId(), userId);
+        final UserProfileDto response = new UserProfileDto();
+        response.setFriend(isFriend);
+        response.setUserDto(user);
+
         return ResponseEntity.ok(response);
     }
 

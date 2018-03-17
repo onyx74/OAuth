@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 @Data
 @ToString
 public class PagebleUserDTO {
@@ -12,4 +14,5 @@ public class PagebleUserDTO {
     private int evalPageSize;
     private Pager pager;
     private int evalPage;
+    private List<Long> friends;
 }
