@@ -1,6 +1,9 @@
 package com.vanya.dao;
 
 import com.vanya.model.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -52,4 +55,6 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
     int setPassToPhoto(long userId, String pathToPhoto);
 
     boolean findByEmailEqualsAndEnabledTrue(String email);
+
+    Page<UserEntity> findAllByUsernameLike(String userName, Pageable pageable);
 }

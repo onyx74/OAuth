@@ -25,7 +25,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Home Page</title>
+    <title>Users Page</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -83,7 +83,7 @@
                                         <a href="/loads" class="btn btn-default btn-flat">Loads</a>
                                     </div>
                                     <div class="col-xs-4 text-center">
-                                        <a href="#" class="btn btn-default btn-flat">Friends</a>
+                                        <a href="/friends" class="btn btn-default btn-flat">Friends</a>
                                     </div>
                                 </div>
                                 <!-- /.row -->
@@ -278,6 +278,18 @@
                             <li><a href="#" onclick="loadNewUsers('next')"><span
                                     class="glyphicon glyphicon-chevron-right"></span></a></li>
                         </ul>
+                    </div>
+                    <div class=" col-md-1"/>
+                    <div class=" col-md-4">
+                        <br/>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input id="searchName" class="form-control" type="text" placeholder="Enter Username"/>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" onclick="getPagebleUsers()">Search by username</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

@@ -41,14 +41,17 @@ public class UserController {
 
     @GetMapping("/api/user")
     public ResponseEntity<?> getAllUsers(@RequestParam("page") Optional<Integer> page,
-                                         @RequestParam("pageSize") Optional<Integer> pageSize) {
+                                         @RequestParam("pageSize") Optional<Integer> pageSize,
+                                         @RequestParam("usernameLike") Optional<String> userNameLike) {
         int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
         int evalPage = (page.orElse(0) < 1) ? PaginationUtils.INITIAL_PAGE_SIZE : page.get() - 1;
 
-        final Page<UserDto> users = userService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize);
+        final Page<UserDto> users = getUsers(userNameLike, pageRequest);
         final Pager pager = new Pager(users.getTotalPages(), users.getNumber(), PaginationUtils.BUTTONS_TO_SHOW);
         final PagebleUserDTO response = new PagebleUserDTO();
         long currentUserId = userService.getCurrentUserId();
+
         List<Long> friends = users.getContent()
                 .stream()
                 .map(user -> {
@@ -67,6 +70,13 @@ public class UserController {
 
         response.setFriends(friends);
         return ResponseEntity.ok(response);
+    }
+
+    private Page<UserDto> getUsers(Optional<String> userNameLike, PageRequest pageRequest) {
+        if (userNameLike.isPresent() && !StringUtils.isBlank(userNameLike.get())) {
+            return userService.findAllPagebleLike(userNameLike.get(), pageRequest);
+        }
+        return userService.findAllPageable(pageRequest);
     }
 
     @GetMapping("/api/user/{userId}")

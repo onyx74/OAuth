@@ -206,6 +206,11 @@ public class UserService {
                 userRepository.findAll(pageable).map(x -> mapper.map(x, UserDto.class));
     }
 
+    public Page<UserDto> findAllPagebleLike(String userNameLike, PageRequest pageable) {
+        return userRepository.findAllByUsernameLike("%" + userNameLike + "%", pageable)
+                .map(x -> mapper.map(x, UserDto.class));
+    }
+
     public Optional<UserDto> getUser(long userId) {
         UserEntity user = userRepository.findOne(userId);
         if (user == null) {

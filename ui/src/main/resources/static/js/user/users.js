@@ -5,10 +5,17 @@ let number = 0;
 let friends;
 
 function getPagebleUsers() {
+    let searchName = $('#searchName').val();
     $.ajax({
         url: '/api/user/',
         type: 'GET',
+        data: {
+            pageSize: 5,
+            page: 1,
+            usernameLike: searchName
+        },
         success: function (response) {
+            $("#tableUsers tbody").empty();
             let body = $('#tableUsers').find('tbody');
             for (let i = 0; i < response.users.content.length; ++i) {
                 let user = response.users.content[i];
@@ -56,6 +63,7 @@ function getPagebleUsers() {
 
 
 function loadNewUsers(pageId) {
+    let searchName = $('#searchName').val();
     const pageSize = $('#pageSizeSelect').val();
     let pageNumber;
     if (pageId === "next") {
@@ -77,7 +85,8 @@ function loadNewUsers(pageId) {
         type: 'GET',
         data: {
             pageSize: pageSize,
-            page: pageNumber
+            page: pageNumber,
+            usernameLike: searchName
         },
         success: function (response) {
             $("#tableUsers tbody").empty();

@@ -22,20 +22,15 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/css/_all-skins.min.css"/>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+    <title>Friends Page</title>
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
 
-    <!-- Google Font -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Edit Profile</title>
-    <!-- Google Font -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -236,132 +231,58 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Main content -->
-        <div class="container">
+        <section id="mainDiv" class="content">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
-
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Edit Profile</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-4 " align="center" style="position: relative;">
-                                    <img id="userPicEdit" alt="User Pic"
-                                         class="img-lg-7 img-responsive"/>
-                                    <br/>
-                                    <button class="btn btn-lg-3 btn-danger" onclick="deleteCurrentPhoto()">Delete
-                                        current
-                                        image
-                                    </button>
-                                </div>
-
-                                <div class=" col-md-8 col-lg-8 ">
-                                    <form id="form" name='updateForm' method='POST'
-                                          commandName="userUpdateForm">
-                                        <table class="table table-user-information">
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p>First Name:</p>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <input id="firstNameEdit" type='text' th:required="required"
-                                                               name='firstName'
-                                                        />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p>Surname:</p>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <input id="surnameEdit" type='text' th:required="required"
-                                                               name='surname'
-                                                        />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p>Email:</p>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <input id="emailEdit" type='text' th:required="required"
-                                                               name='email'/>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <p>Phone Number:</p>
-                                                </td>
-                                                <td>
-                                                    <input type="tel" id="phoneNumberEdit" name="phoneNumber"
-                                                           pattern="2[0-9]{3}-[0-9]{3}"/>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p>Birth Date:</p>
-                                                </td>
-                                                <td>
-                                                    <input id="birthDateEdit" type="date" name="birthDate"/>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </form>
-                                    <table class="table table-user-information">
-                                        <tbody>
-                                        <tr>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <div class="row">
-                                        <form id="upload-file-form">
-                                            <div class="col-md-4 col-lg-4">
-                                                Select File to Upload:
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <input id="upload-file-input" type="file" name="uploadfile" accept="*"/>
-                                            </div>
-                                        </form>
-                                        <br/>
-                                    </div>
-                                    <table class="table table-user-information">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <input onclick="editProfile()"
-                                                       type="button"
-                                                       class="col-xs-5 btn btn-primary btn-load btn-md"
-                                                       value="Edit Profile"/>
-                                            </td>
-                                            <td>
-                                                <a onclick="window.location.href='/profile';"
-                                                   class="col-xs-5 btn btn-success btn-load btn-md">Back</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <br/>
+                <div class="col-lg-10">
+                    <table id="tableUsers" class="table table-hover table-bordered  table-striped" bgcolor="#FFFFFF">
+                        <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Surname</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Created At</th>
+                            <th scope="col">Friend</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
+            <br/>
+            <div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <br/>
+                        <select class="form-control" id="pageSizeSelect">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                        </select>
+                    </div>
+                    <!--<div class="clearfix"></div>-->
+                    <div class="col-md-3">
+                        <ul id='userPages' class="pagination pull-right">
+                            <li><a onclick="loadNewUsers('previous')"><span
+                                    class="glyphicon glyphicon-chevron-left"></span></a>
+                            </li>
+                            <li id="li1"><a id='userPages1' onclick="loadNewUsers('#userPages1')">1</a></li>
+                            <li id="li2"><a id='userPages2' onclick="loadNewUsers('#userPages2')">2</a></li>
+                            <li id="li3"><a id='userPages3' onclick="loadNewUsers('#userPages3')">3</a></li>
+                            <li id="li4"><a id='userPages4' onclick="loadNewUsers('#userPages4')">4</a></li>
+                            <li id="li5"><a id='userPages5' onclick="loadNewUsers('#userPages5')">5</a></li>
+                            <li><a href="#" onclick="loadNewUsers('next')"><span
+                                    class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -526,6 +447,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
+<!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/user/user.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -543,11 +465,12 @@
 <script src="/js/demo.js"></script>
 
 
+<!-- Bootstrap 3.3.7 -->
+
+<!-- AdminLTE App -->
+
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
-<!--<script> setTimeout(uploadInformationForEditProfile(), 10);</script>-->
-<script>
+<!--<script> setTimeout(getPagebleUsers(), 10);</script>-->
 
-</script>
 </body>
-
 </html>
