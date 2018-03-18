@@ -8,6 +8,7 @@ public class Pager {
 
     private int endPage;
 
+    //todo add new constructor
     public Pager(int totalPages, int currentPage, int buttonsToShow) {
 
         setButtonsToShow(buttonsToShow);

@@ -235,7 +235,7 @@
             <div class="row">
                 <br/>
                 <div class="col-lg-10">
-                    <table id="tableUsers" class="table table-hover table-bordered  table-striped" bgcolor="#FFFFFF">
+                    <table id="tableFriends" class="table table-hover table-bordered  table-striped" bgcolor="#FFFFFF">
                         <thead>
                         <tr>
                             <th scope="col">Username</th>
@@ -244,7 +244,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Phone Number</th>
                             <th scope="col">Created At</th>
-                            <th scope="col">Friend</th>
+                            <th scope="col">Remove from friend</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -266,18 +266,30 @@
                     </div>
                     <!--<div class="clearfix"></div>-->
                     <div class="col-md-3">
-                        <ul id='userPages' class="pagination pull-right">
-                            <li><a onclick="loadNewUsers('previous')"><span
+                        <ul id='friendsPages' class="pagination pull-right">
+                            <li><a onclick="loadNewFriends('previous')"><span
                                     class="glyphicon glyphicon-chevron-left"></span></a>
                             </li>
-                            <li id="li1"><a id='userPages1' onclick="loadNewUsers('#userPages1')">1</a></li>
-                            <li id="li2"><a id='userPages2' onclick="loadNewUsers('#userPages2')">2</a></li>
-                            <li id="li3"><a id='userPages3' onclick="loadNewUsers('#userPages3')">3</a></li>
-                            <li id="li4"><a id='userPages4' onclick="loadNewUsers('#userPages4')">4</a></li>
-                            <li id="li5"><a id='userPages5' onclick="loadNewUsers('#userPages5')">5</a></li>
-                            <li><a href="#" onclick="loadNewUsers('next')"><span
+                            <li id="li1"><a id='friendsPages1' onclick="loadNewFriends('#friendsPages1')">1</a></li>
+                            <li id="li2"><a id='friendsPages2' onclick="loadNewFriends('#friendsPages2')">2</a></li>
+                            <li id="li3"><a id='friendsPages3' onclick="loadNewFriends('#friendsPages3')">3</a></li>
+                            <li id="li4"><a id='friendsPages4' onclick="loadNewFriends('#friendsPages4')">4</a></li>
+                            <li id="li5"><a id='friendsPages5' onclick="loadNewFriends('#friendsPages5')">5</a></li>
+                            <li><a href="#" onclick="loadNewFriends('next')"><span
                                     class="glyphicon glyphicon-chevron-right"></span></a></li>
                         </ul>
+                    </div>
+                    <div class=" col-md-1"/>
+                    <div class=" col-md-4">
+                        <br/>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input id="searchName" class="form-control" type="text" placeholder="Enter Username"/>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" onclick="getPagebleUsers()">Search by username</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -450,6 +462,7 @@
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/user/user.js"></script>
+<script src="/js/friends/friends.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -470,7 +483,7 @@
 <!-- AdminLTE App -->
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
-<!--<script> setTimeout(getPagebleUsers(), 10);</script>-->
+<script> setTimeout(getPagebleFriends(), 10);</script>
 
 </body>
 </html>

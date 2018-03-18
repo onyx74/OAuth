@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface UserRepository extends PagingAndSortingRepository<UserEntity, Long> {
@@ -57,4 +58,6 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
     boolean findByEmailEqualsAndEnabledTrue(String email);
 
     Page<UserEntity> findAllByUsernameLike(String userName, Pageable pageable);
+
+    List<UserEntity> findAllByIdIn(List<Long> ids);
 }

@@ -45,15 +45,24 @@ function getPagebleUsers() {
             for (let i = pager.startPage; i <= pager.endPage; ++i) {
                 $("#userPages" + id).text(i.toString());
                 let li = $("#li" + id).classList;
-
+                //todo disabel on click function  unavailable pages
                 if (li) {
                     li.remove('active');
+                    li.remove('disabled')
                 }
                 if (i === response.users.number + 1) {
                     number = response.users.number + 1;
                     $("#li" + id).addClass('active');
                 }
                 id++;
+            }
+            for (; id < 6; id++) {
+                $("#userPages" + id).text(id.toString());
+                let li = $("#li" + id)[0].classList;
+                if (li) {
+                    $("#li" + id).addClass('disabled');
+                    li.remove('active');
+                }
             }
 
             totalPages = response.users.totalPages;
@@ -118,6 +127,7 @@ function loadNewUsers(pageId) {
                 $("#userPages" + id).text(i.toString());
                 let li = $("#li" + id)[0].classList;
                 if (li) {
+                    li.remove('disabled');
                     li.remove('active');
                 }
                 if (i === response.users.number + 1) {
@@ -125,6 +135,14 @@ function loadNewUsers(pageId) {
                     $("#li" + id).addClass('active');
                 }
                 id++;
+            }
+            for (; id < 6; id++) {
+                $("#userPages" + id).text(id.toString());
+                let li = $("#li" + id)[0].classList;
+                if (li) {
+                    $("#li" + id + " a").addClass('disabled');
+                    li.remove('active');
+                }
             }
         }
     });
@@ -228,3 +246,7 @@ function changeUserFriend() {
     isFriend = !isFriend;
 }
 
+function sendMessageToThisUser() {
+    let url = '/sendMessage/' + userProfileId;
+    window.location.href = url;
+}

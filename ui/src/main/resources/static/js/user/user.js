@@ -1,9 +1,11 @@
-var userId;
+var userId = -1;
+
 function uploadBaseUserInformation() {
     $.ajax({
         url: '/api/user/current',
         type: 'GET',
         success: function (currentUser) {
+            userId = currentUser.id;
             $('#header-photo').attr('src', '/api/user/photo/' + currentUser.pathToPhoto);
             $('#header-dropdown-photo').attr('src', '/api/user/photo/' + currentUser.pathToPhoto);
             $('#left-photo').attr('src', '/api/user/photo/' + currentUser.pathToPhoto);
@@ -11,10 +13,10 @@ function uploadBaseUserInformation() {
             $('#header-user-info').text(currentUser.firstName + ' ' + currentUser.surname);
             $('#headerCreatedAt').text("Member since " + currentUser.createdAt);
             $('#header-span-info').text(currentUser.firstName + ' ' + currentUser.surname);
-            userId=currentUser.id;
         }
     });
 }
+
 function uploadProfileInformation() {
     $.ajax({
         url: '/api/user/current',
@@ -30,6 +32,7 @@ function uploadProfileInformation() {
         }
     });
 }
+
 function uploadInformationForEditProfile() {
     $.ajax({
         url: '/api/user/current',
@@ -45,7 +48,7 @@ function uploadInformationForEditProfile() {
     });
 }
 
-function deleteCurrentPhoto(){
+function deleteCurrentPhoto() {
     var photoUrl = "/api/user/" + userId + "/photo/default";
     $.ajax({
         url: photoUrl,
@@ -57,6 +60,7 @@ function deleteCurrentPhoto(){
         }
     });
 }
+
 function editProfile() {
 
     var formData = $('#form').serialize();
@@ -85,20 +89,20 @@ function editProfile() {
 }
 
 function changePassword() {
-    var pass=$("#password").val();
+    var pass = $("#password").val();
     if ($("#password").val().length >= 8) {
         if (ucase.test($("#password").val())) {
             if (lcase.test($("#password").val())) {
                 if (num.test($("#password").val())) {
                     if ($("#password").val() == $("#confirmPassword").val()) {
                         var formData = $('#passwordForm').serialize();
-                        var url="/api/user/"+userId+"/password";
+                        var url = "/api/user/" + userId + "/password";
                         $.ajax({
                             url: url,
                             type: 'POST',
                             data: formData,
                             success: function (res) {
-                                window.location.href='/';
+                                window.location.href = '/';
                             }
 
                         });
