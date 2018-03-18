@@ -15,4 +15,19 @@ public class MessageController {
     public String getSendMessagePage() {
         return "/messages/sendMessage";
     }
+
+    @RequestMapping("/messages")
+    public String getAllMessages() {
+        return "/messages/messages";
+    }
+
+    @RequestMapping("/allSentMessages")
+    public String getAllSentMessages() {
+        return "/messages/sentMessages";
+    }
+
+    @RequestMapping("/message/{messageId}")
+    public String getMessage(@PathVariable("messageId") long messageId) {
+        return "/messages/message";
+    }
 }

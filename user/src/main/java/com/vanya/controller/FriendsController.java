@@ -1,9 +1,7 @@
 package com.vanya.controller;
 
-import com.vanya.dto.PagebleFriendsDTO;
-import com.vanya.dto.PagebleUserDTO;
+import com.vanya.dto.pageble.PagebleFriendsDTO;
 import com.vanya.dto.UserDto;
-import com.vanya.model.FriendEntity;
 import com.vanya.service.FriendsService;
 import com.vanya.service.UserService;
 import com.vanya.utils.Pager;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 public class FriendsController {

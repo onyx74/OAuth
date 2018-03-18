@@ -32,7 +32,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Profile Page</title>
+    <title>Message Information</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -85,7 +85,7 @@
                                         <a href="#" class="btn btn-default btn-flat">Trucks</a>
                                     </div>
                                     <div class="col-xs-4 text-center">
-                                        <a onclick="loadLoads()" class="btn btn-default btn-flat">Loads</a>
+                                        <a href="/loads" class="btn btn-default btn-flat">Loads</a>
                                     </div>
                                     <div class="col-xs-4 text-center">
                                         <a href="/friends" class="btn btn-default btn-flat">Friends</a>
@@ -119,7 +119,6 @@
                 </div>
                 <div class="pull-left info">
                     <p id="info-user-name"/>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
             <!-- /.search form -->
@@ -168,7 +167,7 @@
                 </li>
                 <li class="treeview">
                     <a href="/messages">
-                        <i class="fa fa-envelope"></i> <span>Messages</span>
+                        <i class="fa fa-envelope"></i> <span>Mailbox</span>
                         <span class="pull-right-container">
                              <i class="fa fa-angle-left pull-right"></i>
                              <small class="label pull-right bg-yellow">12</small>
@@ -191,7 +190,8 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                        <li class="active"><a href="profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+                        <li class="active"><a href="profile/profile.html"><i class="fa fa-circle-o"></i> Profile</a>
+                        </li>
                         <li><a href="login.html"><i class="fa fa-circle-o"></i> Login</a></li>
                         <li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>
                         <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
@@ -242,99 +242,54 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Main content -->
+        <br/>
+        <br/>
+        <br/>
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="well well-sm">
+                        <form id="sendMessageForm" class="form-horizontal">
+                            <fieldset>
+                                <legend class="text-center">Message</legend>
 
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">User Profile</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-4 " align="center" style="position: relative;">
-                                    <img alt="User Pic"
-                                         id="userPic"
-                                         src="api/user/photo/anonymous.png"
-                                         class="img-lg-7 img-responsive"/>
+                                <!-- Name input-->
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label" for="sendTo">Message to user</label>
+                                    <div class="col-lg-9">
+                                        <p id="sendTo"
+                                           class="form-control"/>
+                                    </div>
                                 </div>
 
-                                <div class=" col-md-8 col-lg-8 ">
-                                    <table class="table table-user-information">
-                                        <tbody>
-                                        <tr>
-                                            <td>User Name:</td>
-                                            <td><p id="userName" text="User Name:"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p>First Name:</p>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <p id="firstName" text="User Name"/>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p>Surname:</p>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <p id='surname' ttext="${user.surname}"/>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p>Email:</p>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <p id='email' text="${user.email}"/>
-                                                </div>
-                                            </td>
-
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <p>Phone Number:</p>
-                                            </td>
-                                            <td>
-                                                <p id='phoneNumber' text="${user.phoneNumber}"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p>Birth Date:</p>
-                                            </td>
-                                            <td>
-                                                <p id="birthDate" text="${user.birthDate}"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button    onclick="sendMessageToThisUser();"
-                                                         class="btn btn-primary btn-md col-xs-12 col-sm-8">Send Message
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button id="isFriend"  onclick="changeUserFriend();"
-                                                          class="btn btn-md col-xs-12 col-sm-8">
-                                                  Delete
-                                                    <!--todo try to create pop up-->
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label" for="subject">Subject</label>
+                                    <div class="col-lg-9">
+                                        <p id="subject"
+                                           class="form-control"/>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+
+                                <!-- Message body -->
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label" for="text">Your message</label>
+                                    <div class="col-lg-9">
+                                        <textarea readonly="readonly" class="form-control" id="text" name="text"
+                                                  placeholder="Please enter your message here..." rows="7"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Form actions -->
+                                <div class="form-group">
+                                    <div class="col-lg-12 text-right">
+                                        <a href="/allSentMessages" class="btn btn-success btn-lg">
+                                           Back
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -505,7 +460,7 @@
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/user/user.js"></script>
-<script src="/js/user/users.js"></script>
+<script src="/js/messages/messages.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -522,7 +477,7 @@
 
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
-<script> setTimeout(uploadUserInformation(), 10);</script>
+<script> setTimeout(uploadMessageToInformation(), 10);</script>
 </body>
 
 </html>

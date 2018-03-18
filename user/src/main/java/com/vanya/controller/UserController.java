@@ -1,6 +1,7 @@
 package com.vanya.controller;
 
 import com.vanya.dto.*;
+import com.vanya.dto.pageble.PagebleUserDTO;
 import com.vanya.service.FriendsService;
 import com.vanya.service.PhotoService;
 import com.vanya.service.UserService;

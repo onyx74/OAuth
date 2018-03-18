@@ -18,7 +18,9 @@ public class MessageDTO {
     private String text;
 
     @JsonFormat
-            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm a")
+            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm")
     private Date createdAt;
+
+    private boolean checked;
 
 }

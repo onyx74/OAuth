@@ -22,4 +22,6 @@ public class MessageEntity {
     private String text;
 
     private Date createdAt = new Date(System.currentTimeMillis());
+
+    private boolean checked;
 }

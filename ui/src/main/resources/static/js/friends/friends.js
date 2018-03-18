@@ -3,9 +3,7 @@ let number = 0;
 let currentPage = 0;
 
 function getPagebleFriends() {
-    let url;
-
-    url = '/api/user/current/friends/';
+    let url = '/api/user/current/friends/';
     $.ajax({
         url: url,
         type: 'GET',

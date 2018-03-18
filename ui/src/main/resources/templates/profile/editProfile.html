@@ -165,15 +165,21 @@
             </span>
                     </a>
                 </li>
-                <li>
-                    <a href="../mailbox/mailbox.html">
-                        <i class="fa fa-envelope"></i> <span>Mailbox</span>
+                <li class="treeview">
+                    <a href="/messages">
+                        <i class="fa fa-envelope"></i> <span>Messages</span>
                         <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
-            </span>
+                             <i class="fa fa-angle-left pull-right"></i>
+                             <small class="label pull-right bg-yellow">12</small>
+                             <small class="label pull-right bg-green">16</small>
+                             <small class="label pull-right bg-red">5</small>
+                        </span>
                     </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/sendMessage">Compose New Message</a></li>
+                        <li><a href="/messages"> Inbox</a></li>
+                        <li><a href="/allSentMessages">Sent Message</a></li>
+                    </ul>
                 </li>
                 <li class="treeview active">
                     <a href="#">
