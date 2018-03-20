@@ -30,4 +30,9 @@ public class MessageController {
     public String getMessage(@PathVariable("messageId") long messageId) {
         return "/messages/message";
     }
+
+    @RequestMapping("/inbox/{messageId}")
+    public String getInboxMessage(@PathVariable("messageId") long messageId) {
+        return "/messages/inbox";
+    }
 }

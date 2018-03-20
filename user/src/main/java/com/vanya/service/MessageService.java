@@ -35,7 +35,20 @@ public class MessageService {
 
     }
 
+    public Page<MessageDTO> getAllMessages(String sendTo, PageRequest pageRequest) {
+
+        return messagesRepository
+                .findAllBySendTo(sendTo, pageRequest)
+                .map(x -> modelMapper.map(x, MessageDTO.class));
+
+    }
+
     public MessageDTO getMessage(long messageId) {
         return modelMapper.map(messagesRepository.findOne(messageId), MessageDTO.class);
+    }
+
+    public void readMessage(long messageId) {
+        messagesRepository.setIsRead(messageId);
+
     }
 }

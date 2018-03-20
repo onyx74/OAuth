@@ -184,6 +184,10 @@ public class UserService {
         return this.getUserByName(currentUserName).get().getId();
     }
 
+    public String getCurrentUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     public void changeUserPassword(UpdatePasswordDTO newPassword, long userId) {
         userRepository.setNewPassword(passwordEncoder.encode(newPassword.getPassword()), userId);
     }
