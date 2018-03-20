@@ -43,7 +43,7 @@ function getPagebleSentMessages() {
             // usernameLike: searchName
         },
         success: function (response) {
-            processResponseSent(response, '/users/');
+            processResponseSent(response, '/users/', false);
         }
     });
 }
@@ -71,7 +71,7 @@ function getPagebleMessages() {
             // usernameLike: searchName
         },
         success: function (response) {
-            processResponseSent(response, '/inbox/');
+            processResponseSent(response, '/inbox/', true);
         }
     });
 }
@@ -103,7 +103,7 @@ function loadNewMessages(pageId) {
             page: pageNumber
         },
         success: function (response) {
-            processResponseSent(response, '/inbox/');
+            processResponseSent(response, '/inbox/', true);
         }
     });
 }
@@ -135,26 +135,37 @@ function loadNewSentMessages(pageId) {
             page: pageNumber
         },
         success: function (response) {
-            processResponseSent(response, '/users/');
+            processResponseSent(response, '/users/', false);
         }
     });
 }
 
-function processResponseSent(response, string) {
+function processResponseSent(response, string, read) {
     $("#tableMessages tbody").empty();
     let body = $('#tableMessages').find('tbody');
     for (let i = 0; i < response.messages.content.length; ++i) {
         let message = response.messages.content[i];
-        // var text = '<button onclick=' + '"showMessageDetails(' + message.id + ')"' + 'class="btn btn-success">' + 'Show Details' +
-        //     '</button>';
-        body.append($('<tr>')
-            // .append($('<td>').append('<a onclick=' + '"loadUserProfile(' + user.id + ')">' + user.username + '</a>'))
+        if (read) {
+            let val = "NO";
+            if (message.checked) {
+                val = "YES";
+            }
+            body.append($('<tr>')
                 .append($('<td>').append('<a href=' + '"' + string + message.id + '">' + message.sendTo + '</a>'))
                 .append($('<td>').text(message.subject))
                 .append($('<td>').text(message.createdAt))
-                .append($('<td>').append('<a  class="btn btn-success" href=' + '"' + string + message.id + '">' + 'Show message'+ '</a>'))
-        );
-
+                .append($('<td>').append(val))
+                .append($('<td>').append('<a  class="btn btn-success" href=' + '"' + string + message.id + '">' + 'Show message' + '</a>'))
+            );
+        } else {
+            body.append($('<tr>')
+                // .append($('<td>').append('<a onclick=' + '"loadUserProfile(' + user.id + ')">' + user.username + '</a>'))
+                    .append($('<td>').append('<a href=' + '"' + string + message.id + '">' + message.sendTo + '</a>'))
+                    .append($('<td>').text(message.subject))
+                    .append($('<td>').text(message.createdAt))
+                    .append($('<td>').append('<a  class="btn btn-success" href=' + '"' + string + message.id + '">' + 'Show message' + '</a>'))
+            );
+        }
     }
     let pager = response.pager;
     let id = 1;

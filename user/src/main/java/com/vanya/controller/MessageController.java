@@ -100,5 +100,11 @@ public class MessageController {
         messageService.readMessage(messageId);
         return ResponseEntity.ok("");
     }
+
+    @GetMapping("/api/user/current/unreadMessages")
+    public ResponseEntity<?> getCountOfUnreadMessages() {
+        String username = userService.getCurrentUsername();
+        return ResponseEntity.ok(messageService.getCountOfUnreadMessages(username));
+    }
 }
 //todo check that Id the same ;

@@ -15,6 +15,15 @@ function uploadBaseUserInformation() {
             $('#header-span-info').text(currentUser.firstName + ' ' + currentUser.surname);
         }
     });
+    $.ajax({
+        url: '/api/user/current/unreadMessages',
+        type: 'GET',
+        success: function (response) {
+            if (response > 0) {
+                $("#countMessage").append('<small class="label pull-right bg-red">' + response + '</small>');
+            }
+        }
+    })
 }
 
 function uploadProfileInformation() {

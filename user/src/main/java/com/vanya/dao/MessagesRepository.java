@@ -21,4 +21,7 @@ public interface MessagesRepository extends PagingAndSortingRepository<MessageEn
     @Transactional
     @Query("UPDATE MessageEntity  m SET m.checked= true WHERE m.id= ?1")
     int setIsRead(long messageId);
+
+    @Query("SELECT COUNT(m) FROM MessageEntity m WHERE m.sendTo= ?1 AND m.checked= false ")
+    int selectCountUnreadMessages(String userName);
 }

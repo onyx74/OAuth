@@ -51,4 +51,8 @@ public class MessageService {
         messagesRepository.setIsRead(messageId);
 
     }
+
+    public int getCountOfUnreadMessages(String username) {
+        return messagesRepository.selectCountUnreadMessages(username);
+    }
 }
