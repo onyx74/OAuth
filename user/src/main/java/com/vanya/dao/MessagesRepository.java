@@ -15,7 +15,7 @@ public interface MessagesRepository extends PagingAndSortingRepository<MessageEn
 
     Page<MessageEntity> findAllByOwnerId(long ownerId, Pageable pageable);
 
-    Page<MessageEntity> findAllBySendTo(String sendTo, Pageable pageable);
+    Page<MessageEntity> findAllBySendToAndSubjectLikeAndSendToLike(String sendTo, Pageable pageable, String subject, String sentTo);
 
     @Modifying(clearAutomatically = true)
     @Transactional

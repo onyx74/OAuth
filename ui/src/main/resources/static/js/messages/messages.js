@@ -1,6 +1,8 @@
 let totalPages = 0;
 let number = 0;
 let currentPage = 0;
+let subject = "";
+let sentTo = "";
 
 function uploadUserToInformation() {
     let userId = window.location.href.split("/")[4];
@@ -67,7 +69,9 @@ function getPagebleMessages() {
         type: 'GET',
         data: {
             pageSize: 5,
-            page: 1
+            page: 1,
+            subject: subject,
+            sentTo: sentTo
             // usernameLike: searchName
         },
         success: function (response) {
@@ -100,7 +104,9 @@ function loadNewMessages(pageId) {
         type: 'GET',
         data: {
             pageSize: pageSize,
-            page: pageNumber
+            page: pageNumber,
+            subject: subject,
+            sentTo: sentTo
         },
         success: function (response) {
             processResponseSent(response, '/inbox/', true);
@@ -175,7 +181,9 @@ function processResponseSent(response, string, read) {
         //todo hidden unavailable pages
         if (li) {
             li.remove('active');
+            li.remove('disabled');
         }
+        $("#li" + id).addClass('enabled');
         if (i === response.messages.number + 1) {
             number = response.messages.number + 1;
             $("#li" + id).addClass('active');

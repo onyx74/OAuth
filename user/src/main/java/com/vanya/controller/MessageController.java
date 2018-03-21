@@ -1,7 +1,6 @@
 package com.vanya.controller;
 
 import com.vanya.dto.MessageDTO;
-import com.vanya.dto.pageble.PagebleFriendsDTO;
 import com.vanya.dto.pageble.PagebleMessageDTO;
 import com.vanya.service.MessageService;
 import com.vanya.service.UserService;
@@ -67,14 +66,17 @@ public class MessageController {
     @GetMapping("/api/user/{userId}/messages")
     public ResponseEntity<?> getAllMessages(@PathVariable("userId") long userId,
                                             @RequestParam("page") Optional<Integer> page,
-                                            @RequestParam("pageSize") Optional<Integer> pageSize) {
+                                            @RequestParam("pageSize") Optional<Integer> pageSize,
+                                            @RequestParam("subject") String subject,
+                                            @RequestParam("sentTo") String sentTo) {
         int evalPage = (page.orElse(0) < 1) ? PaginationUtils.INITIAL_PAGE_SIZE : page.get() - 1;
         int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
 
 
         final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize, new Sort(Sort.Direction.DESC, "createdAt"));
 
-        final Page<MessageDTO> messages = messageService.getAllMessages(userService.getCurrentUsername(), pageRequest);
+        final Page<MessageDTO> messages = messageService.getAllMessages(userService.getCurrentUsername(), pageRequest, subject, sentTo);
+
         final Pager pager = new Pager(messages.getTotalPages(),
                 messages.getNumber(),
                 PaginationUtils.BUTTONS_TO_SHOW);
@@ -90,9 +92,11 @@ public class MessageController {
 
     @GetMapping("/api/user/current/messages")
     public ResponseEntity<?> getAllMessages(@RequestParam("page") Optional<Integer> page,
-                                            @RequestParam("pageSize") Optional<Integer> pageSize) {
+                                            @RequestParam("pageSize") Optional<Integer> pageSize,
+                                            @RequestParam("subject") String subject,
+                                            @RequestParam("sentTo") String sentTo) {
         long currentUserId = userService.getCurrentUserId();
-        return getAllMessages(currentUserId, page, pageSize);
+        return getAllMessages(currentUserId, page, pageSize, subject, sentTo);
     }
 
     @PostMapping("/api/user/current/message/{messageId}")

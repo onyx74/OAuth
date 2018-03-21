@@ -30,15 +30,22 @@ public class MessageService {
     public Page<MessageDTO> getAllMessages(long ownerId, PageRequest pageRequest) {
 
         return messagesRepository
-                .findAllByOwnerId(ownerId, pageRequest)
+                .findAllByOwnerId(ownerId,
+                        pageRequest)
                 .map(x -> modelMapper.map(x, MessageDTO.class));
 
     }
 
-    public Page<MessageDTO> getAllMessages(String sendTo, PageRequest pageRequest) {
+    public Page<MessageDTO> getAllMessages(String sendTo,
+                                           PageRequest pageRequest,
+                                           String subject,
+                                           String sentTo) {
 
         return messagesRepository
-                .findAllBySendTo(sendTo, pageRequest)
+                .findAllBySendToAndSubjectLikeAndSendToLike(sendTo,
+                        pageRequest,
+                        "%" + subject + "%",
+                        "%" + sentTo + "%")
                 .map(x -> modelMapper.map(x, MessageDTO.class));
 
     }
