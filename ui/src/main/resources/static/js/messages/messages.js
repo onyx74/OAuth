@@ -71,7 +71,7 @@ function getPagebleMessages() {
             pageSize: 5,
             page: 1,
             subject: subject,
-            sentTo: sentTo
+            from: sentTo
             // usernameLike: searchName
         },
         success: function (response) {
@@ -106,7 +106,7 @@ function loadNewMessages(pageId) {
             pageSize: pageSize,
             page: pageNumber,
             subject: subject,
-            sentTo: sentTo
+            from: sentTo
         },
         success: function (response) {
             processResponseSent(response, '/inbox/', true);
@@ -157,7 +157,7 @@ function processResponseSent(response, string, read) {
                 val = "YES";
             }
             body.append($('<tr>')
-                .append($('<td>').append('<a href=' + '"' + string + message.id + '">' + message.sendTo + '</a>'))
+                .append($('<td>').append(response.userNames[message.ownerId]))
                 .append($('<td>').text(message.subject))
                 .append($('<td>').text(message.createdAt))
                 .append($('<td>').append(val))
@@ -166,7 +166,7 @@ function processResponseSent(response, string, read) {
         } else {
             body.append($('<tr>')
                 // .append($('<td>').append('<a onclick=' + '"loadUserProfile(' + user.id + ')">' + user.username + '</a>'))
-                    .append($('<td>').append('<a href=' + '"' + string + message.id + '">' + message.sendTo + '</a>'))
+                    .append($('<td>').append( message.sendTo))
                     .append($('<td>').text(message.subject))
                     .append($('<td>').text(message.createdAt))
                     .append($('<td>').append('<a  class="btn btn-success" href=' + '"' + string + message.id + '">' + 'Show message' + '</a>'))

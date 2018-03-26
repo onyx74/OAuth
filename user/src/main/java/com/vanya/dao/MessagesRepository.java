@@ -10,12 +10,17 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface MessagesRepository extends PagingAndSortingRepository<MessageEntity, Long> {
 
     Page<MessageEntity> findAllByOwnerId(long ownerId, Pageable pageable);
 
-    Page<MessageEntity> findAllBySendToAndSubjectLikeAndSendToLike(String sendTo, Pageable pageable, String subject, String sentTo);
+    Page<MessageEntity> findAllBySendToAndSubjectLikeAndOwnerIdIn(String sendTo,
+                                                                  Pageable pageable,
+                                                                  String subject,
+                                                                  List<Long> ownerId);
 
     @Modifying(clearAutomatically = true)
     @Transactional

@@ -1,6 +1,7 @@
 package com.vanya.controller;
 
 import com.vanya.dto.MessageDTO;
+import com.vanya.dto.UserDto;
 import com.vanya.dto.pageble.PagebleMessageDTO;
 import com.vanya.service.MessageService;
 import com.vanya.service.UserService;
@@ -13,7 +14,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class MessageController {
@@ -68,14 +71,18 @@ public class MessageController {
                                             @RequestParam("page") Optional<Integer> page,
                                             @RequestParam("pageSize") Optional<Integer> pageSize,
                                             @RequestParam("subject") String subject,
-                                            @RequestParam("sentTo") String sentTo) {
+                                            @RequestParam("from") String from) {
         int evalPage = (page.orElse(0) < 1) ? PaginationUtils.INITIAL_PAGE_SIZE : page.get() - 1;
         int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
 
 
         final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize, new Sort(Sort.Direction.DESC, "createdAt"));
 
-        final Page<MessageDTO> messages = messageService.getAllMessages(userService.getCurrentUsername(), pageRequest, subject, sentTo);
+        List<Long> allUser = userService.getAllUserLike(from);
+        final Page<MessageDTO> messages = messageService.getAllMessages(userService.getCurrentUsername(),
+                pageRequest,
+                subject,
+                allUser);
 
         final Pager pager = new Pager(messages.getTotalPages(),
                 messages.getNumber(),
@@ -87,6 +94,7 @@ public class MessageController {
         response.setEvalPageSize(evalPageSize);
         response.setMessages(messages);
         response.setPager(pager);
+        response.setUserNames( userService.getAllUserNames(allUser));
         return ResponseEntity.ok(response);
     }
 
@@ -94,9 +102,9 @@ public class MessageController {
     public ResponseEntity<?> getAllMessages(@RequestParam("page") Optional<Integer> page,
                                             @RequestParam("pageSize") Optional<Integer> pageSize,
                                             @RequestParam("subject") String subject,
-                                            @RequestParam("sentTo") String sentTo) {
+                                            @RequestParam("from") String from) {
         long currentUserId = userService.getCurrentUserId();
-        return getAllMessages(currentUserId, page, pageSize, subject, sentTo);
+        return getAllMessages(currentUserId, page, pageSize, subject, from);
     }
 
     @PostMapping("/api/user/current/message/{messageId}")

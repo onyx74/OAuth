@@ -18,18 +18,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-
 import java.sql.Date;
-import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -221,5 +218,19 @@ public class UserService {
             return Optional.empty();
         }
         return Optional.ofNullable(mapper.map(user, UserDto.class));
+    }
+
+
+    public List<Long> getAllUserLike(String from) {
+        return userRepository.findAllByUsernameLike("%" + from + "%")
+                .stream()
+                .map(UserEntity::getId)
+                .collect(Collectors.toList());
+    }
+
+    public Map<Long, String> getAllUserNames(List<Long> allUser) {
+        return userRepository.findAllByIdIn(allUser)
+                .stream()
+                .collect(Collectors.toMap(UserEntity::getId,UserEntity::getUsername));
     }
 }

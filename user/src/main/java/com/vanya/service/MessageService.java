@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MessageService {
     @Autowired
@@ -39,13 +41,13 @@ public class MessageService {
     public Page<MessageDTO> getAllMessages(String sendTo,
                                            PageRequest pageRequest,
                                            String subject,
-                                           String sentTo) {
+                                           List<Long> sentTo) {
 
         return messagesRepository
-                .findAllBySendToAndSubjectLikeAndSendToLike(sendTo,
+                .findAllBySendToAndSubjectLikeAndOwnerIdIn(sendTo,
                         pageRequest,
                         "%" + subject + "%",
-                        "%" + sentTo + "%")
+                        sentTo)
                 .map(x -> modelMapper.map(x, MessageDTO.class));
 
     }
