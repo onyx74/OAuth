@@ -22,6 +22,7 @@
         <module>common</module>
         <module>user</module>
         <module>ui</module>
+        <module>load-service</module>
     </modules>
 
     <properties>

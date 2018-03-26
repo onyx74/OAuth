@@ -31,6 +31,10 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /**
       stripPrefix: false
+    load-service:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      path: /api/loads/**
+      stripPrefix: false
   add-proxy-headers: true
   host:
     connect-timeout-millis: 120000
