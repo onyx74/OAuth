@@ -42,6 +42,7 @@
         <org.passy.version>1.3.1</org.passy.version>
         <jackson.utility.version>2.9.4</jackson.utility.version>
         <spring.data.commons.version>1.13.9.RELEASE</spring.data.commons.version>
+        <google.maps.services.version>0.2.6</google.maps.services.version>
     </properties>
 
     <dependencyManagement>
@@ -157,6 +158,12 @@
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson.utility.version}</version>
+            </dependency>
+            <!--############### Google Maps #############-->
+            <dependency>
+                <groupId>com.google.maps</groupId>
+                <artifactId>google-maps-services</artifactId>
+                <version>${google.maps.services.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

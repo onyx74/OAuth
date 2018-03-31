@@ -1,4 +1,5 @@
 var userId = -1;
+var currentUserName;
 
 function uploadBaseUserInformation() {
     $.ajax({
@@ -6,6 +7,7 @@ function uploadBaseUserInformation() {
         type: 'GET',
         success: function (currentUser) {
             userId = currentUser.id;
+            currentUserName = currentUser.username;
             $('#header-photo').attr('src', '/api/user/photo/' + currentUser.pathToPhoto);
             $('#header-dropdown-photo').attr('src', '/api/user/photo/' + currentUser.pathToPhoto);
             $('#left-photo').attr('src', '/api/user/photo/' + currentUser.pathToPhoto);

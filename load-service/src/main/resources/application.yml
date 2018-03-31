@@ -46,7 +46,13 @@ security:
           -----END PUBLIC KEY-----
       id: openid
       serviceId: ${PREFIX:}resource
-
+############################## MAPS #####################
+google:
+  maps:
+    geocoding:
+      key: AIzaSyDZPfbQasQ1QlNrG_TUnzpSjZkdbAULNek
+    distance:
+      key: AIzaSyDAOkd1WsHvwwmfSBETYjvseoX0uABgZ9A
 
 
 

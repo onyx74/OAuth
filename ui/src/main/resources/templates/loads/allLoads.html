@@ -32,7 +32,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Change Password</title>
+    <title>Loads Page</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -119,7 +119,6 @@
                 </div>
                 <div class="pull-left info">
                     <p id="info-user-name"/>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
             <!-- /.search form -->
@@ -166,6 +165,7 @@
             </span>
                     </a>
                 </li>
+
                 <li class="treeview">
                     <a href="/messages">
                         <i class="fa fa-envelope"></i> <span>Messages</span>
@@ -179,6 +179,7 @@
                         <li><a href="/allSentMessages">Sent Message</a></li>
                     </ul>
                 </li>
+
                 <li class="treeview">
                     <a>
                         <i class="glyphicon glyphicon-tags"></i> <span>Loads</span>
@@ -232,72 +233,10 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <br/>
-        <br/>
         <!-- Main content -->
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
+        <section id="mainDiv" class="content">
 
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Change Password</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class=" col-md-8 col-lg-8 ">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-sm-offset-3">
-                                            <form method="post" id="passwordForm" commandName="userChangePasswordForm">
-                                                <input type="password" class="input-md form-control" name="password"
-                                                       id="password" placeholder="New Password" autocomplete="off"/>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                <span id="8char" class="glyphicon glyphicon-remove"
-                                                      style="color:#FF0004;"></span> 8 Characters Long<br/>
-                                                        <span id="ucase" class="glyphicon glyphicon-remove"
-                                                              style="color:#FF0004;"></span> One Uppercase Letter
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                <span id="lcase" class="glyphicon glyphicon-remove"
-                                                      style="color:#FF0004;"></span> One Lowercase Letter<br/>
-                                                        <span id="num" class="glyphicon glyphicon-remove"
-                                                              style="color:#FF0004;"></span> One Number
-                                                    </div>
-                                                </div>
-                                                <br/>
-                                                <input type="password" class="input-md form-control"
-                                                       name="confirmPassword"
-                                                       id="confirmPassword" placeholder="Repeat Password"
-                                                       autocomplete="off"/>
-
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                <span id="pwmatch" class="glyphicon glyphicon-remove"
-                                                      style="color:#FF0004;"></span> Passwords Match
-                                                    </div>
-                                                </div>
-                                                <br/>
-                                                <div class="row">
-                                                    <input onclick="changePassword()"
-                                                           type="button"
-                                                           class="col-xs-5 btn btn-primary btn-load btn-md"
-                                                           data-loading-text="Changing Password..."
-                                                           value="Change Password"/>
-                                                    <div class="col-xs-2"/>
-                                                    <a onclick="window.location.href='/profile';"
-                                                       class="col-xs-5 btn btn-success btn-load btn-md">Back</a>
-                                                </div>
-                                            </form>
-                                        </div><!--/col-sm-6-->
-                                    </div><!--/row-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -480,66 +419,6 @@
 
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
-<script>
-    var ucase = new RegExp("[A-Z]+");
-    var lcase = new RegExp("[a-z]+");
-    var num = new RegExp("[0-9]+");
-
-
-    $("input[type=password]").keyup(function () {
-
-
-        if ($("#password").val().length >= 8) {
-            $("#8char").removeClass("glyphicon-remove");
-            $("#8char").addClass("glyphicon-ok");
-            $("#8char").css("color", "#00A41E");
-        } else {
-            $("#8char").removeClass("glyphicon-ok");
-            $("#8char").addClass("glyphicon-remove");
-            $("#8char").css("color", "#FF0004");
-        }
-
-        if (ucase.test($("#password").val())) {
-            $("#ucase").removeClass("glyphicon-remove");
-            $("#ucase").addClass("glyphicon-ok");
-            $("#ucase").css("color", "#00A41E");
-        } else {
-            $("#ucase").removeClass("glyphicon-ok");
-            $("#ucase").addClass("glyphicon-remove");
-            $("#ucase").css("color", "#FF0004");
-        }
-
-        if (lcase.test($("#password").val())) {
-            $("#lcase").removeClass("glyphicon-remove");
-            $("#lcase").addClass("glyphicon-ok");
-            $("#lcase").css("color", "#00A41E");
-        } else {
-            $("#lcase").removeClass("glyphicon-ok");
-            $("#lcase").addClass("glyphicon-remove");
-            $("#lcase").css("color", "#FF0004");
-        }
-
-        if (num.test($("#password").val())) {
-            $("#num").removeClass("glyphicon-remove");
-            $("#num").addClass("glyphicon-ok");
-            $("#num").css("color", "#00A41E");
-        } else {
-            $("#num").removeClass("glyphicon-ok");
-            $("#num").addClass("glyphicon-remove");
-            $("#num").css("color", "#FF0004");
-        }
-
-        if ($("#password").val() == $("#confirmPassword").val()) {
-            $("#pwmatch").removeClass("glyphicon-remove");
-            $("#pwmatch").addClass("glyphicon-ok");
-            $("#pwmatch").css("color", "#00A41E");
-        } else {
-            $("#pwmatch").removeClass("glyphicon-ok");
-            $("#pwmatch").addClass("glyphicon-remove");
-            $("#pwmatch").css("color", "#FF0004");
-        }
-    });
-</script>
 </body>
 
 </html>
