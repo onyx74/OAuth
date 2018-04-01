@@ -4,9 +4,8 @@ let currentPage = 0;
 
 function uploadMyPagebleLoadsOnStart() {
 
-    let url = '/api/loads/current';
     $.ajax({
-        url: url,
+        url: '/api/loads/current',
         type: 'GET',
         data: {
             pageSize: 5,
@@ -61,8 +60,8 @@ function deleteLoad(loadId) {
     });
 }
 
-function showLoadsOnMap() {
-
+function showMyLoadsOnMap() {
+    window.location.href = "/myLoadsMap";
 }
 
 function processResponse(response) {

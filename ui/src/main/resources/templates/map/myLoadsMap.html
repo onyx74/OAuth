@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -36,9 +36,13 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<!--<body >-->
+
+<!--<div id="map" style="height: 50%;visibility:visible;"></div>-->
+<div class="wrapper" style="height:100%; width:100%;">
 
     <header class="main-header">
         <!-- Logo -->
@@ -108,7 +112,8 @@
             </div>
         </nav>
     </header>
-    <!-- Left side column. contains the logo and sidebar -->
+
+    <!--&lt;!&ndash; Left side column. contains the logo and sidebar &ndash;&gt;-->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
@@ -244,76 +249,17 @@
         <!-- /.sidebar -->
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Main content -->
-        <section id="mainDiv" class="content">
-            <div class="row">
-                <br/>
-                <div class="col-lg-10">
-                    <table id="tableLoads" class="table table-hover table-bordered  table-striped" bgcolor="#FFFFFF">
-                        <thead>
-                        <tr>
-                            <th scope="col">LoadId</th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Create Date</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">From</th>
-                            <th scope="col">To</th>
-                            <th scope="col">Distance</th>
-                            <th scope="col">Truck Type</th>
-                            <th scope="col">Weight</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Public</th>
-                            <th scope="col">Details</th>
-                            <th scope="col">Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <br/>
-            <div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <br/>
-                        <select class="form-control" id="pageSizeSelect">
-                            <option>5</option>
-                            <option>10</option>
-                            <option>15</option>
-                            <option>20</option>
-                        </select>
-                    </div>
-                    <!--<div class="clearfix"></div>-->
-                    <div class="col-md-3">
-                        <ul id='userPages' class="pagination pull-right">
-                            <li><a onclick="uploadMyPagebleLoads('previous')"><span
-                                    class="glyphicon glyphicon-chevron-left"></span></a>
-                            </li>
-                            <li id="li1"><a id='loadPages1' onclick="uploadMyPagebleLoads('#loadPages1')">1</a></li>
-                            <li id="li2"><a id='loadPages2' onclick="uploadMyPagebleLoads('#loadPages2')">2</a></li>
-                            <li id="li3"><a id='loadPages3' onclick="uploadMyPagebleLoads('#loadPages3')">3</a></li>
-                            <li id="li4"><a id='loadPages4' onclick="uploadMyPagebleLoads('#loadPages4')">4</a></li>
-                            <li id="li5"><a id='loadPages5' onclick="uploadMyPagebleLoads('#loadPages5')">5</a></li>
-                            <li><a href="#" onclick="uploadMyPagebleLoads('next')"><span
-                                    class="glyphicon glyphicon-chevron-right"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class=" col-md-1"/>
-                    <div class=" col-md-4">
-                        <br/>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <button class="btn btn-primary" onclick="showMyLoadsOnMap()">Show loads on map</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-        </section>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="height:100%; width:100%;">
+        <!-- Main content -->
+        <div class="col-lg-10" style="height:100%; width:100%;">
+            <br/>
+            <br/>
+            <div id="googleMap" style="width:60%;height:800px;"></div>
+
+        </div>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -480,7 +426,7 @@
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/user/user.js"></script>
-<script src="/js/loads/myLoads.js"></script>
+<script src="/js/map/myLoadsMap.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -497,7 +443,7 @@
 
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
-<script> setTimeout(uploadMyPagebleLoadsOnStart(), 10);</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfBDnucdZOdQrkmqSyQXQ9xaJRBVmErRA&amp;callback=myMap"></script>
 </body>
 
 </html>
