@@ -53,6 +53,7 @@ public class LoadService {
         return mapper.map(loadEntity, LoadDTO.class);
     }
 
+    //todo fix bug with load edit
     private LoadEntity getLoadEntity(LoadDTO loadDTO) {
         LoadEntity loadEntity = mapper.map(loadDTO, LoadEntity.class);
         loadEntity.setCreateDate(new Date(System.currentTimeMillis()));

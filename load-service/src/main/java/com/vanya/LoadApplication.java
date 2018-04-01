@@ -30,14 +30,13 @@ public class LoadApplication extends ResourceServerConfigurerAdapter {
         SpringApplication.run(LoadApplication.class, args);
     }
 
+    //todo add config
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.formLogin().loginPage("/login").permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/reader", "/api/user/{userName}/information","/**",
-                        "/api/user/registration/success", "/api/user", "/api/user/css/**", "/api/user/js/**"
-                        , "/api/user/registration/resend/**", "/api/user/resendRegistrationToken").permitAll()
+                .antMatchers("/**").permitAll()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

@@ -23,6 +23,7 @@
         <module>user</module>
         <module>ui</module>
         <module>load-service</module>
+        <module>truck-service</module>
     </modules>
 
     <properties>

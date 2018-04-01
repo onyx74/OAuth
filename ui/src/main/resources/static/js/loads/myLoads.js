@@ -56,7 +56,7 @@ function deleteLoad(loadId) {
         url: url,
         type: 'DELETE',
         success: function (user) {
-            uploadMyPagebleLoads();
+            uploadMyPagebleLoadsOnStart();
         }
     });
 }
@@ -71,7 +71,7 @@ function processResponse(response) {
     for (let i = 0; i < response.loads.content.length; ++i) {
         let load = response.loads.content[i];
         let val = "NO";
-        if (load.isPublicLoad) {
+        if (load.publicLoad) {
             val = "YES";
         }
         body.append($('<tr>')

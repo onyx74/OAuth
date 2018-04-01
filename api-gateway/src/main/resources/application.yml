@@ -35,6 +35,10 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /api/loads/**
       stripPrefix: false
+    truck-service:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      path: /api/trucks/**
+      stripPrefix: false
   add-proxy-headers: true
   host:
     connect-timeout-millis: 120000

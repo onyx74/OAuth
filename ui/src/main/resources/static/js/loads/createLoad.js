@@ -36,6 +36,7 @@ function initMap() {
     });
 }
 
+//todo add sorting by create date on load page
 function createLoad() {
     $("#username").val(currentUserName);
     var formData = $('#form').serialize();
@@ -44,5 +45,5 @@ function createLoad() {
         type: 'POST',
         data: formData
     });
-    window.location.href = "/allLoads";
+    window.location.href = "/myLoads";
 }

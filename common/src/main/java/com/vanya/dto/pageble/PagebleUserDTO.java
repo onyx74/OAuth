@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 @Data
-@ToString
 public class PagebleUserDTO {
     private Page<UserDto> users;
     private int evalPageSize;

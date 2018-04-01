@@ -1,6 +1,7 @@
 var currentLoadId;
 var ownerName;
 
+//todo add avtocomplite
 function loadLoadsDetails() {
     let loadId = window.location.href.split("/")[5];
     let url = '/api/loads/' + loadId;

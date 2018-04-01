@@ -8,7 +8,6 @@ import lombok.ToString;
 import java.util.List;
 
 @Data
-@ToString
 public class PagebleFriendsDTO {
     private List<UserDto> users;
     private int evalPageSize;

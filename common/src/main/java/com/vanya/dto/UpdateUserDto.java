@@ -9,7 +9,6 @@ import lombok.ToString;
 import java.sql.Date;
 
 @Data
-@ToString
 public class UpdateUserDto {
     @ValidEmail
     private String email;

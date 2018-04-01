@@ -50,7 +50,7 @@ import java.security.KeyPair;
 @EnableEurekaClient
 @ComponentScan({"com.vanya.*", "com.vanya.validation.validators"})
 public class UaaServiceApplication extends WebMvcConfigurerAdapter {
-
+    //todo add link on owner in loads and trucks
     public static void main(String[] args) {
         SpringApplication.run(UaaServiceApplication.class, args);
     }
