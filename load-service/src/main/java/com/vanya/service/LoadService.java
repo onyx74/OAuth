@@ -16,7 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Service
 public class LoadService {
@@ -61,9 +60,17 @@ public class LoadService {
         return loadEntity;
     }
 
-    public Page<LoadDTO> findAllLoads(String username, int evalPage, int evalPageSize) {
+    public Page<LoadDTO> findAllLoads(String username,
+                                      String from,
+                                      String to,
+                                      int evalPage,
+                                      int evalPageSize) {
         final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize);
-        return loadRepository.findAllByUsername(username, pageRequest).map(load -> mapper.map(load, LoadDTO.class));
+        return loadRepository.findAllByUsernameAndStartAddressLikeAndFinishAddressLike(username,
+                "%" + from + "%",
+                "%" + to + "%",
+                pageRequest)
+                .map(load -> mapper.map(load, LoadDTO.class));
     }
 
     public void removeLoad(long loadId) {

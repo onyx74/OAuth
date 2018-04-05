@@ -55,12 +55,14 @@ public class LoadController {
 
     @GetMapping("/api/loads/current")
     public ResponseEntity<?> getAllLoadsForCurrentUser(@RequestParam("page") Optional<Integer> page,
-                                                       @RequestParam("pageSize") Optional<Integer> pageSize) {
+                                                       @RequestParam("pageSize") Optional<Integer> pageSize,
+                                                       @RequestParam("from") String from,
+                                                       @RequestParam("to") String to) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         int evalPage = getEvalPage(page);
         int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
 
-        final Page<LoadDTO> loadEntities = loadService.findAllLoads(username, evalPage, evalPageSize);
+        final Page<LoadDTO> loadEntities = loadService.findAllLoads(username, from, to, evalPage, evalPageSize);
         final PagebleLoadsDTO response = getPagebleLoadsDTO(evalPageSize, evalPage, loadEntities);
         return ResponseEntity.ok(response);
     }

@@ -4,6 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Comparator;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 @Controller
 public class MapController {
     @GetMapping("/loadsMap")
@@ -18,6 +22,7 @@ public class MapController {
 
     @GetMapping("/myLoadsMap")
     public String getMyLoadMap() {
+
         return "/map/myLoadsMap";
     }
 }

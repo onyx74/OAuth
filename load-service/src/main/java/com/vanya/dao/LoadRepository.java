@@ -23,5 +23,8 @@ public interface LoadRepository extends PagingAndSortingRepository<LoadEntity, L
                               double finishLongitude,
                               long distance);
 
-    Page<LoadEntity> findAllByUsername(String username, Pageable pageable);
+    Page<LoadEntity> findAllByUsernameAndStartAddressLikeAndFinishAddressLike(String username,
+                                                                              String startAddress,
+                                                                              String finishAddress,
+                                                                              Pageable pageable);
 }
