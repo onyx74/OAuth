@@ -34,13 +34,16 @@ public class MessageController {
     @GetMapping("/api/user/{userId}/messagesSent")
     public ResponseEntity<?> getAllSentMessages(@PathVariable("userId") long userId,
                                                 @RequestParam("page") Optional<Integer> page,
-                                                @RequestParam("pageSize") Optional<Integer> pageSize) {
+                                                @RequestParam("pageSize") Optional<Integer> pageSize,
+                                                @RequestParam("subject") String subject,
+                                                @RequestParam("to") String to) {
         int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
-
         int evalPage = (page.orElse(0) < 1) ? PaginationUtils.INITIAL_PAGE_SIZE : page.get() - 1;
 
         final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize, new Sort(Sort.Direction.DESC, "createdAt"));
-        final Page<MessageDTO> messages = messageService.getAllMessages(userId, pageRequest);
+
+        final List<String> allUser = userService.getAllUserNameLike(to);
+        final Page<MessageDTO> messages = messageService.getAllMessages(userId, pageRequest, subject, allUser);
         final Pager pager = new Pager(messages.getTotalPages(),
                 messages.getNumber(),
                 PaginationUtils.BUTTONS_TO_SHOW);
@@ -51,14 +54,17 @@ public class MessageController {
         response.setEvalPageSize(evalPageSize);
         response.setMessages(messages);
         response.setPager(pager);
+        response.setUserIds(userService.getAllUserIds(allUser));
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/api/user/current/messagesSent")
     public ResponseEntity<?> getAllSentMessages(@RequestParam("page") Optional<Integer> page,
-                                                @RequestParam("pageSize") Optional<Integer> pageSize) {
+                                                @RequestParam("pageSize") Optional<Integer> pageSize,
+                                                @RequestParam("subject") String subject,
+                                                @RequestParam("to") String to) {
         long currentUserId = userService.getCurrentUserId();
-        return getAllSentMessages(currentUserId, page, pageSize);
+        return getAllSentMessages(currentUserId, page, pageSize, subject, to);
     }
 
     @GetMapping("/api/user/current/messages/{messageId}")
@@ -94,7 +100,7 @@ public class MessageController {
         response.setEvalPageSize(evalPageSize);
         response.setMessages(messages);
         response.setPager(pager);
-        response.setUserNames( userService.getAllUserNames(allUser));
+        response.setUserNames(userService.getAllUserNames(allUser));
         return ResponseEntity.ok(response);
     }
 

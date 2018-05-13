@@ -58,7 +58,7 @@ public class GoogleApiUtils {
         try {
             DistanceMatrix results = DistanceMatrixApi.getDistanceMatrix(context, new String[]{firstPlace.toString()},
                     new String[]{secondPlace.toString()}).await();
-            return results.rows[0].elements[0].distance.inMeters;
+            return results.rows[0].elements[0].distance.inMeters    ;
         } catch (Exception e) {
             log.error("Error during reverse geocode", e);
 //            throw new RuntimeException(e);

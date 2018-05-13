@@ -6,11 +6,12 @@ let friends;
 
 function getPagebleUsers() {
     let searchName = $('#searchName').val();
+    let pageSize = $('#pageSizeSelect').val();
     $.ajax({
         url: '/api/user/',
         type: 'GET',
         data: {
-            pageSize: 5,
+            pageSize: pageSize,
             page: 1,
             usernameLike: searchName
         },
@@ -44,7 +45,7 @@ function getPagebleUsers() {
             let id = 1;
             for (let i = pager.startPage; i <= pager.endPage; ++i) {
                 $("#userPages" + id).text(i.toString());
-                let li = $("#li" + id).classList;
+                let li = $("#li" + id)[0].classList;
                 //todo disabel on click function  unavailable pages
                 if (li) {
                     li.remove('active');

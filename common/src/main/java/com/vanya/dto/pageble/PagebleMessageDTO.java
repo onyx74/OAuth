@@ -14,6 +14,7 @@ import java.util.Map;
 public class PagebleMessageDTO {
     private Page<MessageDTO> messages;
     private Map<Long, String> userNames;
+    private Map<String, Long> userIds;
     private int evalPageSize;
     private Pager pager;
     private int evalPage;

@@ -24,6 +24,7 @@
         <module>ui</module>
         <module>load-service</module>
         <module>truck-service</module>
+        <module>vrp</module>
     </modules>
 
     <properties>
@@ -44,6 +45,7 @@
         <jackson.utility.version>2.9.4</jackson.utility.version>
         <spring.data.commons.version>1.13.9.RELEASE</spring.data.commons.version>
         <google.maps.services.version>0.2.6</google.maps.services.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -97,11 +99,6 @@
                 <version>${spring.data.commons.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-thymeleaf</artifactId>
-                <version>${spring.cloud.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -166,7 +163,13 @@
                 <artifactId>google-maps-services</artifactId>
                 <version>${google.maps.services.version}</version>
             </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
 

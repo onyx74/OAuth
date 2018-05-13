@@ -15,7 +15,10 @@ import java.util.List;
 @Repository
 public interface MessagesRepository extends PagingAndSortingRepository<MessageEntity, Long> {
 
-    Page<MessageEntity> findAllByOwnerId(long ownerId, Pageable pageable);
+    Page<MessageEntity> findAllByOwnerIdAndSubjectLikeAndSendToIn(long ownerId,
+                                                                  Pageable pageable,
+                                                                  String subject,
+                                                                  List<String> sentTo);
 
     Page<MessageEntity> findAllBySendToAndSubjectLikeAndOwnerIdIn(String sendTo,
                                                                   Pageable pageable,

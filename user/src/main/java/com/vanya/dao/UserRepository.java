@@ -61,5 +61,7 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
 
     List<UserEntity> findAllByIdIn(List<Long> ids);
 
+    List<UserEntity> findAllByUsernameIn(List<String> usernames);
+
     List<UserEntity> findAllByUsernameLike(String userName);
 }

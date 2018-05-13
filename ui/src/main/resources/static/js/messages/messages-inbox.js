@@ -1,7 +1,6 @@
 let currentHref;
 
-function applayFilters() {
-    alert(window.location.href);
+function applayFilters(val) {
     var stateObj = {foo: "bar"};
     subject = $("#subject").val();
     sentTo = $("#from").val();
@@ -13,16 +12,23 @@ function applayFilters() {
         z = window.location.href + "?subject=" + subject + "&sentTo=" + sentTo;
     }
     history.pushState(stateObj, "page 2", z);
-    getPagebleMessages();
-
+    if (val) {
+        getPagebleSentMessages();
+    } else {
+        getPagebleMessages();
+    }
 }
 
-function resetFilters() {
+function resetFilters(val) {
     subject = "";
     sentTo = "";
     $("#subject").val("");
     $("#from").val("");
     var stateObj = {foo: "bar"};
     history.pushState(stateObj, "page 2", currentHref);
-    getPagebleMessages();
+    if (val) {
+        getPagebleSentMessages();
+    } else {
+        getPagebleMessages();
+    }
 }

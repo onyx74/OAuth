@@ -41,11 +41,12 @@ function getPagebleSentMessages() {
         type: 'GET',
         data: {
             pageSize: 5,
-            page: 1
-            // usernameLike: searchName
+            page: 1,
+            subject: subject,
+            to: sentTo
         },
         success: function (response) {
-            processResponseSent(response, '/users/', false);
+            processResponseSent(response, '/inbox/', false);
         }
     });
 }
@@ -138,10 +139,12 @@ function loadNewSentMessages(pageId) {
         type: 'GET',
         data: {
             pageSize: pageSize,
-            page: pageNumber
+            page: pageNumber,
+            subject: subject,
+            to: sentTo
         },
         success: function (response) {
-            processResponseSent(response, '/users/', false);
+            processResponseSent(response, '/inbox/', false);
         }
     });
 }
@@ -157,7 +160,7 @@ function processResponseSent(response, string, read) {
                 val = "YES";
             }
             body.append($('<tr>')
-                .append($('<td>').append(response.userNames[message.ownerId]))
+                .append($('<td>').append('<a href=' + '"/users/' + message.ownerId + '">' + response.userNames[message.ownerId] + '</a>'))
                 .append($('<td>').text(message.subject))
                 .append($('<td>').text(message.createdAt))
                 .append($('<td>').append(val))
@@ -165,11 +168,10 @@ function processResponseSent(response, string, read) {
             );
         } else {
             body.append($('<tr>')
-                // .append($('<td>').append('<a onclick=' + '"loadUserProfile(' + user.id + ')">' + user.username + '</a>'))
-                    .append($('<td>').append( message.sendTo))
-                    .append($('<td>').text(message.subject))
-                    .append($('<td>').text(message.createdAt))
-                    .append($('<td>').append('<a  class="btn btn-success" href=' + '"' + string + message.id + '">' + 'Show message' + '</a>'))
+                .append($('<td>').append('<a href=' + '"/users/' + response.userIds[message.sendTo] + '">' + message.sendTo + '</a>'))
+                .append($('<td>').text(message.subject))
+                .append($('<td>').text(message.createdAt))
+                .append($('<td>').append('<a  class="btn btn-success" href=' + '"' + string + message.id + '">' + 'Show message' + '</a>'))
             );
         }
     }

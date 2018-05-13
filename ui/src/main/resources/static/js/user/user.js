@@ -85,6 +85,7 @@ function editProfile() {
         contentType: false,
         cache: false,
         success: function (res) {
+            window.location.href = '/';
         }
     });
     var url = "/api/user/" + userId;

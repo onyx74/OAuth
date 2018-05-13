@@ -29,11 +29,15 @@ public class MessageService {
         return modelMapper.map(messagesRepository.save(messageEntity), MessageDTO.class);
     }
 
-    public Page<MessageDTO> getAllMessages(long ownerId, PageRequest pageRequest) {
+    public Page<MessageDTO> getAllMessages(long ownerId, PageRequest pageRequest,
+                                           String subject,
+                                           List<String> userNames) {
 
         return messagesRepository
-                .findAllByOwnerId(ownerId,
-                        pageRequest)
+                .findAllByOwnerIdAndSubjectLikeAndSendToIn(ownerId,
+                        pageRequest,
+                        "%" + subject + "%",
+                        userNames)
                 .map(x -> modelMapper.map(x, MessageDTO.class));
 
     }
@@ -41,13 +45,13 @@ public class MessageService {
     public Page<MessageDTO> getAllMessages(String sendTo,
                                            PageRequest pageRequest,
                                            String subject,
-                                           List<Long> sentTo) {
+                                           List<Long> ownerIds) {
 
         return messagesRepository
                 .findAllBySendToAndSubjectLikeAndOwnerIdIn(sendTo,
                         pageRequest,
                         "%" + subject + "%",
-                        sentTo)
+                        ownerIds)
                 .map(x -> modelMapper.map(x, MessageDTO.class));
 
     }

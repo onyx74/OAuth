@@ -228,9 +228,22 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<String> getAllUserNameLike(String userLike) {
+        return userRepository.findAllByUsernameLike("%" + userLike + "%")
+                .stream()
+                .map(UserEntity::getUsername)
+                .collect(Collectors.toList());
+    }
+
     public Map<Long, String> getAllUserNames(List<Long> allUser) {
         return userRepository.findAllByIdIn(allUser)
                 .stream()
-                .collect(Collectors.toMap(UserEntity::getId,UserEntity::getUsername));
+                .collect(Collectors.toMap(UserEntity::getId, UserEntity::getUsername));
+    }
+
+    public Map<String, Long> getAllUserIds(List<String> userNames) {
+        return userRepository.findAllByUsernameIn(userNames)
+                .stream()
+                .collect(Collectors.toMap(UserEntity::getUsername, UserEntity::getId));
     }
 }
