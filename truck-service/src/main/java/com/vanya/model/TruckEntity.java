@@ -7,11 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
-//todo rewrite all forms with event processing
-
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

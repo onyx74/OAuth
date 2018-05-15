@@ -8,8 +8,7 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/css/font-awesome.min.css"/>
     <!-- Ionicons -->
     <link rel="stylesheet" href="/css/ionicons.min.css"/>
@@ -23,6 +22,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/css/_all-skins.min.css"/>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,7 +33,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Truck Page</title>
+    <title>Home Page</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -125,6 +125,7 @@
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
+
                 <li>
                     <a href="/users">
                         <i class="fa fa-user-o"></i>
@@ -192,101 +193,9 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Main content -->
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
+        <section id="mainDiv" class="content">
 
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Load Information</h3>
-                        </div>
-                        <fieldset>
-                            <form accept-charset="UTF-8" id="form" method='POST' class="form-horizontal"
-                                  commandName="CreateNewLoad">
-                                <br/>
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="currentPossition">Current
-                                        Position</label>
-                                    <div class="col-md-4">
-                                        <p id="currentPossition"
-                                           class="form-control input-md"/>
-
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="carModel">Car Model</label>
-                                    <div class="col-md-4">
-                                        <p id="carModel" class="form-control input-md"/>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="driverName">Driver Name</label>
-                                    <div class="col-md-4">
-                                        <p id="driverName"/>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="truckType">Truck Type</label>
-                                    <div class="col-md-4">
-                                        <select class="form-control" required="required" id="truckType"
-                                                name="truckType">
-                                            <option value="DEFAULT">Default</option>
-                                            <option value="FLATBED">Flatbed</option>
-                                            <option value="REEFER">Reefer</option>
-                                            <option value="CARGO_VAN">Cargo Van</option>
-                                            <option value="VAN">Van</option>
-                                            <option value="CONTAINER">Container</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="carrying">Carrying</label>
-                                    <div class="col-md-4">
-                                        <p id="carrying"/>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="pricePerMile">PRice per mile $</label>
-                                    <div class="col-md-4">
-                                        <p id="pricePerMile"/>
-
-                                    </div>
-                                </div>
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="publicTruck">Public Truck</label>
-                                    <div class="col-md-2">
-                                        <input id="publicTruck" name="publicTruck" type="checkbox"/>
-
-                                    </div>
-                                </div>
-                            </form>
-                            <!-- Button (Double) -->
-                            <div class="form-group">
-                                <div class="row col-md-8 col-md-offset-3">
-
-                                    <div class="col-md-5">
-                                        <a onclick="back()" class="col-md-11 btn btn-lg btn-success">Back</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <br/>
-                            <br/>
-                            <br/>
-                        </fieldset>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -452,7 +361,6 @@
 
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
-<script src="/js/trucks/truck.js"></script>
 <script src="/js/user/user.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
@@ -470,7 +378,6 @@
 
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
-<script> setTimeout(loadTrucksDetails(), 10);</script>
 </body>
 
 </html>

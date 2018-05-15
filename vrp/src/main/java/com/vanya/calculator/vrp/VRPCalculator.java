@@ -6,9 +6,11 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Table;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.util.Pair;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class VRPCalculator {
 
     public Multimap<Long, Long> clarckSolver(Table<Long, Long, Double> distances) {
@@ -119,8 +121,11 @@ public class VRPCalculator {
                                     Long secondLoadId,
                                     Map<Long, Long> loadInSequence,
                                     Multimap<Long, Long> sequences) {
-        final Long firstSequenceId = loadInSequence.get(firstLoadId);
-        final Long secondSequenceId = loadInSequence.get(secondLoadId);
+        final long firstSequenceId = loadInSequence.get(firstLoadId);
+        final long secondSequenceId = loadInSequence.get(secondLoadId);
+        if (firstSequenceId == secondSequenceId) {
+            return;
+        }
         final Collection<Long> secondSequence = sequences.removeAll(secondSequenceId);
 
         sequences.putAll(firstSequenceId, secondSequence);
@@ -154,8 +159,9 @@ public class VRPCalculator {
 
     protected Set<Pair<Double, Pair<Long, Long>>> calculateSafeDistance(Table<Long, Long, Double> distances) {
         Set<Pair<Double, Pair<Long, Long>>> savedDistances = new TreeSet<>((o1, o2) -> {
-            if (o1.getSecond().equals(o2.getSecond()) ||
-                    o1.getSecond().equals(Pair.of(o2.getSecond().getSecond(), o2.getSecond().getFirst()))) {
+            if ((o1.getSecond().equals(o2.getSecond()) ||
+                    o1.getSecond().equals(Pair.of(o2.getSecond().getSecond(), o2.getSecond().getFirst())))
+                    && o1.getFirst().equals(o2.getFirst())) {
                 return 0;
             }
             int z = (int) (o2.getFirst() - o1.getFirst());
@@ -172,7 +178,7 @@ public class VRPCalculator {
                 if (secondLoadId == 0L || secondLoadId == firstLoadId) {
                     continue;
                 }
-                double save = distances.get(0L, firstLoadId) + distances.get(0L, secondLoadId) - distances.get(firstLoadId, secondLoadId);
+                double save = distances.get(0L, firstLoadId) + distances.get(secondLoadId, 0L) - distances.get(firstLoadId, secondLoadId);
                 if (save > 0) {
                     savedDistances.add(makePair(save, firstLoadId, secondLoadId));
                 }

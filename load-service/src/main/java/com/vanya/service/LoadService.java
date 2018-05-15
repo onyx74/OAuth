@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class LoadService {
@@ -95,5 +97,13 @@ public class LoadService {
 
     public LoadDTO getLoad(Long loadId) {
         return mapper.map(loadRepository.findOne(loadId), LoadDTO.class);
+    }
+
+    public List<LoadDTO> getLoads(List<Long> loadsId) {
+        final List<LoadDTO> result = new ArrayList<>();
+        loadRepository.findAll(loadsId).forEach(load -> {
+            result.add(mapper.map(load, LoadDTO.class));
+        });
+        return result;
     }
 }

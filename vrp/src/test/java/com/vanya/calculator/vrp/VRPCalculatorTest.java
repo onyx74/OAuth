@@ -18,7 +18,7 @@ public class VRPCalculatorTest {
         assertEquals(3.0, (double) doublePairPair.getFirst(), 0.00003);
         assertEquals(40L, (long) doublePairPair.getSecond().getFirst());
         assertEquals(5432L, (long) doublePairPair.getSecond().getSecond());
-//        assertEq
+
     }
 
     @Test

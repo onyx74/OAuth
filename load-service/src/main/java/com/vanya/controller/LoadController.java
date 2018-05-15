@@ -25,14 +25,14 @@ public class LoadController {
     @Autowired
     private LoadService loadService;
 
-    @GetMapping("/api/loads/test")
-    public String test() {
-        return "getTest";
-    }
-
     @GetMapping("/api/loads/{loadId}")
     public ResponseEntity<?> getLoad(@PathVariable("loadId") Long loadId) {
         return ResponseEntity.ok(loadService.getLoad(loadId));
+    }
+
+    @GetMapping("/api/loads/info")
+    public List<LoadDTO> getLoads(@RequestParam("loadsId[]") List<Long> loadsId) {
+        return loadService.getLoads(loadsId);
     }
 
     @PostMapping("/api/loads/{loadId}")

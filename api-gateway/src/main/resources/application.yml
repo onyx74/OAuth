@@ -39,6 +39,10 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
       path: /api/trucks/**
       stripPrefix: false
+    vrp-service:
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      path: /api/vrp/**
+      stripPrefix: false
   add-proxy-headers: true
   host:
     connect-timeout-millis: 120000

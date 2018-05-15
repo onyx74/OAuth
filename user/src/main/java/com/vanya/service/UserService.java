@@ -203,8 +203,7 @@ public class UserService {
     }
 
     public Page<UserDto> findAllPageable(PageRequest pageable) {
-        return
-                userRepository.findAll(pageable).map(x -> mapper.map(x, UserDto.class));
+        return userRepository.findAll(pageable).map(x -> mapper.map(x, UserDto.class));
     }
 
     public Page<UserDto> findAllPagebleLike(String userNameLike, PageRequest pageable) {

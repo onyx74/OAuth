@@ -23,6 +23,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/css/_all-skins.min.css"/>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,7 +34,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Truck Page</title>
+    <title>Create optimal Way</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -132,6 +133,7 @@
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
+
                 <li class="treeview">
                     <a href="/messages">
                         <i class="fa fa-envelope"></i> <span>Messages</span>
@@ -192,101 +194,95 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Main content -->
-        <div class="container">
+        <section id="mainDiv" class="content">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
-
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Load Information</h3>
-                        </div>
-                        <fieldset>
-                            <form accept-charset="UTF-8" id="form" method='POST' class="form-horizontal"
-                                  commandName="CreateNewLoad">
+                <br/>
+                <div class="col-lg-9">
+                    <table id="tableLoads" class="table table-hover table-bordered  table-striped" bgcolor="#FFFFFF">
+                        <thead>
+                        <tr>
+                            <th scope="col">LoadId</th>
+                            <th scope="col">Create Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">From</th>
+                            <th scope="col">To</th>
+                            <th scope="col">Distance</th>
+                            <th scope="col">Truck Type</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Public</th>
+                            <th scope="col">Add to road</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-3">
+                    <div>
+                        <div class="well">
+                            <h3 align="center">Road Details</h3>
+                            <form id="searchFiltersForm" class="form-horizontal">
+                                <div class="form-group has-feedback row">
+                                    <input type="text" class="form-control" placeholder="Start Position" name="startPosition"
+                                           id="startPosition"/>
+                                </div>
+                                <div class="form-group has-feedback row">
+                                    <input type="text" class="form-control" placeholder="Road Name" id="roadName"/>
+                                </div>
+                                <span id="error" name="error" class="text-danger col-xs-12" style="color:red;"></span>
                                 <br/>
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="currentPossition">Current
-                                        Position</label>
-                                    <div class="col-md-4">
-                                        <p id="currentPossition"
-                                           class="form-control input-md"/>
+                                <p class="text-center">
+                                    <button type="button" onclick="applayFilters()" class="btn btn-success btn-lg"
+                                            role="button">Create New Road<span
+                                            class="glyphicon glyphicon-search"/></button>
+                                </p>
 
-                                    </div>
-                                </div>
-
-                                <!-- Text input-->
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="carModel">Car Model</label>
-                                    <div class="col-md-4">
-                                        <p id="carModel" class="form-control input-md"/>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="driverName">Driver Name</label>
-                                    <div class="col-md-4">
-                                        <p id="driverName"/>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="truckType">Truck Type</label>
-                                    <div class="col-md-4">
-                                        <select class="form-control" required="required" id="truckType"
-                                                name="truckType">
-                                            <option value="DEFAULT">Default</option>
-                                            <option value="FLATBED">Flatbed</option>
-                                            <option value="REEFER">Reefer</option>
-                                            <option value="CARGO_VAN">Cargo Van</option>
-                                            <option value="VAN">Van</option>
-                                            <option value="CONTAINER">Container</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="carrying">Carrying</label>
-                                    <div class="col-md-4">
-                                        <p id="carrying"/>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="pricePerMile">PRice per mile $</label>
-                                    <div class="col-md-4">
-                                        <p id="pricePerMile"/>
-
-                                    </div>
-                                </div>
-                                <!-- Text input-->
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="publicTruck">Public Truck</label>
-                                    <div class="col-md-2">
-                                        <input id="publicTruck" name="publicTruck" type="checkbox"/>
-
-                                    </div>
-                                </div>
                             </form>
-                            <!-- Button (Double) -->
-                            <div class="form-group">
-                                <div class="row col-md-8 col-md-offset-3">
-
-                                    <div class="col-md-5">
-                                        <a onclick="back()" class="col-md-11 btn btn-lg btn-success">Back</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <br/>
-                            <br/>
-                            <br/>
-                        </fieldset>
-
-
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <br/>
+            <div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <br/>
+                        <select class="form-control" id="pageSizeSelect">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                        </select>
+                    </div>
+                    <!--<div class="clearfix"></div>-->
+                    <div class="col-md-3">
+                        <ul id='userPages' class="pagination pull-right">
+                            <li><a onclick="uploadMyPagebleLoads('previous')"><span
+                                    class="glyphicon glyphicon-chevron-left"></span></a>
+                            </li>
+                            <li id="li1"><a id='loadPages1' onclick="uploadMyPagebleLoads('#loadPages1')">1</a></li>
+                            <li id="li2"><a id='loadPages2' onclick="uploadMyPagebleLoads('#loadPages2')">2</a></li>
+                            <li id="li3"><a id='loadPages3' onclick="uploadMyPagebleLoads('#loadPages3')">3</a></li>
+                            <li id="li4"><a id='loadPages4' onclick="uploadMyPagebleLoads('#loadPages4')">4</a></li>
+                            <li id="li5"><a id='loadPages5' onclick="uploadMyPagebleLoads('#loadPages5')">5</a></li>
+                            <li><a href="#" onclick="uploadMyPagebleLoads('next')"><span
+                                    class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class=" col-md-1"/>
+                    <div class=" col-md-4">
+                        <br/>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" onclick="showMyLoadsOnMap()">Show loads on map</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -452,8 +448,8 @@
 
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
-<script src="/js/trucks/truck.js"></script>
 <script src="/js/user/user.js"></script>
+<script src="/js/vrp/createNewVrp.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -470,7 +466,10 @@
 
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
-<script> setTimeout(loadTrucksDetails(), 10);</script>
+<script> setTimeout(uploadMyPagebleLoadsOnStart(), 10);</script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?callback=initMap&amp;libraries=places&amp;key=AIzaSyCfBDnucdZOdQrkmqSyQXQ9xaJRBVmErRA"></script>
+
 </body>
 
 </html>
