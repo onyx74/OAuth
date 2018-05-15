@@ -5,6 +5,7 @@ import com.google.common.collect.Table;
 import com.google.maps.model.LatLng;
 import com.vanya.calculator.vrp.VRPCalculator;
 import com.vanya.client.LoadClient;
+import com.vanya.dao.VrpItemRepository;
 import com.vanya.dao.VrpRepository;
 import com.vanya.dto.LoadDTO;
 import com.vanya.dto.VrpDTO;
@@ -16,6 +17,8 @@ import com.vanya.utils.GoogleApiUtils;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,10 @@ import java.util.stream.Collectors;
 public class VrpService {
     @Autowired
     private VrpRepository vrpRepository;
+
+    @Autowired
+    private VrpItemRepository vrpItemRepository;
+
     @Autowired
     private GoogleApiUtils googleApiUtils;
 
@@ -49,7 +56,27 @@ public class VrpService {
         Multimap<Long, Long> result = vrpCalculator.clarckSolver(table);
         VrpEntity vrpEntity = convertToVrpEntity(result, loads, geocod);
         vrpEntity.setName(name);
+        vrpEntity.setStartLocation(startPosition);
         vrpRepository.save(vrpEntity);
+        return convertToVrpEntityDTO(vrpEntity);
+    }
+
+
+    public Page<VrpDTO> findAllVrp(String username,
+                                   String startPosition,
+                                   String name,
+                                   int evalPage,
+                                   int evalPageSize) {
+        final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize);
+        return vrpRepository.findAllByOwnerAndNameLikeAndStartLocationLike(username,
+                "%" + name + "%",
+                "%" + startPosition + "%",
+                pageRequest)
+                .map(this::convertToVrpEntityDTO);
+    }
+
+    public VrpDTO getVrp(long vrpId) {
+        VrpEntity vrpEntity = vrpRepository.findOne(vrpId);
         return convertToVrpEntityDTO(vrpEntity);
     }
 
@@ -108,6 +135,7 @@ public class VrpService {
         );
         vrpDTO.setVrpId(vrpEntity.getVrpId());
         vrpDTO.setName(vrpEntity.getName());
+        vrpDTO.setStartLocation(vrpEntity.getStartLocation());
         return vrpDTO;
     }
 

@@ -21,7 +21,6 @@ public class VrpItemEntity {
     private int position;
 
     @ManyToOne
-    @JoinColumn(name="vrp_id")
     private VrpEntity vrp;
 
     private double startLongitude;

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -16,8 +17,10 @@ public class VrpEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long vrpId;
+
     private String owner;
     private String name;
+    private String startLocation;
     private double startLatitude;
     private double startLongitude;
     private Date createDate;

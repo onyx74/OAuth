@@ -12,6 +12,7 @@ public class VrpDTO {
     private long vrpId;
     private String owner;
     private String name;
+    private String startLocation;
     private double startLatitude;
     private double startLongitude;
     private int position;

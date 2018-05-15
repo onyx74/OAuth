@@ -15,6 +15,11 @@ public class MapController {
         return "/map/loadsMap";
     }
 
+    @GetMapping("/vrpMap/{vrpId}")
+    public String getVrpMap(@PathVariable long vrpId) {
+        return "/map/vrpMap";
+    }
+
     @GetMapping("loadMap/{loadId}")
     public String getLoadOnMap(@PathVariable long loadId) {
         return "/map/loadMap";
