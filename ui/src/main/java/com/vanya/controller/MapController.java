@@ -25,6 +25,16 @@ public class MapController {
         return "/map/myLoadsMap";
     }
 
+    @GetMapping("/myTrucksMap")
+    public String getMyTruckMap() {
+        return "/map/myTrucksMap";
+    }
+
+    @GetMapping("/allTrucksMap")
+    public String getAllTrucksMap() {
+        return "/map/allTrucksMap";
+    }
+
     @GetMapping("/allLoadsMap")
     public String getAllLoadMap() {
         return "/map/allLoadsMap";

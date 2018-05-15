@@ -65,7 +65,8 @@ function deleteTruck(truckId) {
     });
 }
 
-function shoowTrucksOnMap() {
+function showTrucksOnMap() {
+    window.location.href = "/myTrucksMap";
 
 }
 
