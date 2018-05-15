@@ -66,7 +66,7 @@ function deleteTruck(truckId) {
 }
 
 function showTrucksOnMap() {
-    window.location.href = "/myTrucksMap";
+    window.location.href = "/allTrucksMap";
 
 }
 
