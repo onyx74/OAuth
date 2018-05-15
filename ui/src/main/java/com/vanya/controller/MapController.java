@@ -22,7 +22,11 @@ public class MapController {
 
     @GetMapping("/myLoadsMap")
     public String getMyLoadMap() {
-
         return "/map/myLoadsMap";
+    }
+
+    @GetMapping("/allLoadsMap")
+    public String getAllLoadMap() {
+        return "/map/allLoadsMap";
     }
 }

@@ -48,12 +48,14 @@ public class TruckController {
 
     @GetMapping("/api/trucks/current")
     public ResponseEntity<?> getAllTrucksForCurrentUser(@RequestParam("page") Optional<Integer> page,
-                                                        @RequestParam("pageSize") Optional<Integer> pageSize) {
+                                                        @RequestParam("pageSize") Optional<Integer> pageSize,
+                                                        @RequestParam("carModel") String carModel,
+                                                        @RequestParam("position") String position) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         int evalPage = getEvalPage(page);
         int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
 
-        final Page<TruckDTO> loadEntities = truckService.findAllTrucks(username, evalPage, evalPageSize);
+        final Page<TruckDTO> loadEntities = truckService.findAllTrucks(username, carModel, position, evalPage, evalPageSize);
         final PagebleTruckDTO response = getPagebleTruckDTO(evalPageSize, evalPage, loadEntities);
         return ResponseEntity.ok(response);
     }

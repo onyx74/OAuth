@@ -16,8 +16,8 @@ public class TruckEventProcessor implements ApplicationListener<NewTruckEvent> {
     private GoogleApiUtils googleApiUtils;
 
     @Override
-    public void onApplicationEvent(NewTruckEvent loadEvent) {
-        TruckEntity truckEntity = loadEvent.getTruckEntity();
+    public void onApplicationEvent(NewTruckEvent truckEvent) {
+        TruckEntity truckEntity = truckEvent.getTruckEntity();
         Long truckId = truckEntity.getTruckId();
         LatLng startLocation = googleApiUtils.geocod(truckEntity.getCurrentPossition());
 

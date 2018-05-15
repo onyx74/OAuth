@@ -27,4 +27,8 @@ public interface LoadRepository extends PagingAndSortingRepository<LoadEntity, L
                                                                               String startAddress,
                                                                               String finishAddress,
                                                                               Pageable pageable);
+
+    Page<LoadEntity> findAllByStartAddressLikeAndFinishAddressLikeAndPublicLoadTrue(String startAddress,
+                                                                   String finishAddress,
+                                                                   Pageable pageable);
 }

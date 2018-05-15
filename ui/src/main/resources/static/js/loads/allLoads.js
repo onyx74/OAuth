@@ -7,7 +7,7 @@ let to = "";
 function uploadMyPagebleLoadsOnStart() {
 
     $.ajax({
-        url: '/api/loads/current',
+        url: '/api/loads/',
         type: 'GET',
         data: {
             pageSize: 5,
@@ -22,7 +22,7 @@ function uploadMyPagebleLoadsOnStart() {
 }
 
 function uploadMyPagebleLoads(pageId) {
-    let url = '/api/loads/current';
+    let url = '/api/loads/';
     const pageSize = $('#pageSizeSelect').val();
     let pageNumber;
     if (pageId === "next") {
@@ -67,7 +67,7 @@ function deleteLoad(loadId) {
 }
 
 function showMyLoadsOnMap() {
-    window.location.href = "/myLoadsMap";
+    window.location.href = "/allLoadsMap";
 }
 
 function processResponse(response) {
@@ -75,12 +75,10 @@ function processResponse(response) {
     let body = $('#tableLoads').find('tbody');
     for (let i = 0; i < response.loads.content.length; ++i) {
         let load = response.loads.content[i];
-        let val = "NO";
-        if (load.publicLoad) {
-            val = "YES";
-        }
+
         body.append($('<tr>')
             .append($('<td>').append(load.loadId))
+            .append($('<td>').append(load.username))
             .append($('<td>').text(load.createDate))
             .append($('<td>').text(load.loadStatus))
             .append($('<td>').append(load.startAddress))
@@ -89,9 +87,7 @@ function processResponse(response) {
             .append($('<td>').append(load.truckType))
             .append($('<td>').append(load.weight))
             .append($('<td>').append(load.price))
-            .append($('<td>').append(val))
-            .append($('<td>').append('<a class="btn btn-success glyphicon glyphicon-search" href=' + '"/loads/' + load.loadId + '"/>'))
-            .append($('<td>').append('<a class="btn btn-danger glyphicon glyphicon-trash" onclick=' + '"deleteLoad(' + load.loadId + ')"/>'))
+            .append($('<td>').append('<a class="btn btn-success glyphicon glyphicon-search" href=' + '"/loads/' + load.loadId + '/private"/>'))
         );
     }
     let pager = response.pager;

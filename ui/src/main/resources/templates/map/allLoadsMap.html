@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="/css/vivi.min.css"/>
     <!-- iCheck -->
     <link rel="stylesheet" href="/css/blue.css"/>
-
     <!-- Theme style -->
     <link rel="stylesheet" href="/css/vivi.min.css"/>
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -33,13 +32,17 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Edit Profile</title>
+    <title>My Loads</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<!--<body >-->
+
+<!--<div id="map" style="height: 50%;visibility:visible;"></div>-->
+<div class="wrapper" style="height:100%; width:100%;">
 
     <header class="main-header">
         <!-- Logo -->
@@ -109,7 +112,8 @@
             </div>
         </nav>
     </header>
-    <!-- Left side column. contains the logo and sidebar -->
+
+    <!--&lt;!&ndash; Left side column. contains the logo and sidebar &ndash;&gt;-->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
@@ -132,6 +136,7 @@
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
+
                 <li class="treeview">
                     <a href="/messages">
                         <i class="fa fa-envelope"></i> <span>Messages</span>
@@ -145,6 +150,7 @@
                         <li><a href="/allSentMessages">Sent Message</a></li>
                     </ul>
                 </li>
+
                 <li class="treeview">
                     <a>
                         <i class="glyphicon glyphicon-tags"></i> <span>Loads</span>
@@ -176,131 +182,54 @@
         <!-- /.sidebar -->
     </aside>
 
+
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="height:100%; width:100%;">
         <!-- Main content -->
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-0 toppad">
+        <div class="row" style="height:100%; width:100%;">
+            <div class="col-lg-8" style="height:100%; width:60%;">
+                <br/>
+                <div id="googleMap" style="width:100%;height:700px;"></div>
 
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Edit Profile</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-4 " align="center" style="position: relative;">
-                                    <img id="userPicEdit" alt="User Pic"
-                                         class="img-lg-7 img-responsive"/>
-                                    <br/>
-                                    <button class="btn btn-lg-3 btn-danger" onclick="deleteCurrentPhoto()">Delete
-                                        current
-                                        image
-                                    </button>
-                                </div>
-
-                                <div class=" col-md-8 col-lg-8 ">
-                                    <form id="form" name='updateForm' method='POST'
-                                          commandName="userUpdateForm">
-                                        <table class="table table-user-information">
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p>First Name:</p>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <input id="firstNameEdit" type='text' th:required="required"
-                                                               name='firstName'
-                                                        />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p>Surname:</p>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <input id="surnameEdit" type='text' th:required="required"
-                                                               name='surname'
-                                                        />
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p>Email:</p>
-                                                </td>
-                                                <td>
-                                                    <div>
-                                                        <input id="emailEdit" type='text' th:required="required"
-                                                               name='email'/>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <p>Phone Number:</p>
-                                                </td>
-                                                <td>
-                                                    <input type="tel" id="phoneNumberEdit" name="phoneNumber"
-                                                           pattern="2[0-9]{3}-[0-9]{3}"/>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p>Birth Date:</p>
-                                                </td>
-                                                <td>
-                                                    <input id="birthDateEdit" type="date" name="birthDate"/>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </form>
-                                    <table class="table table-user-information">
-                                        <tbody>
-                                        <tr>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <div class="row">
-                                        <form id="upload-file-form">
-                                            <div class="col-md-4 col-lg-4">
-                                                Select File to Upload:
-                                            </div>
-                                            <div class="col-md-4 col-lg-4">
-                                                <input id="upload-file-input" type="file" name="uploadfile" accept="*"/>
-                                            </div>
-                                        </form>
-                                        <br/>
-                                    </div>
-                                    <table class="table table-user-information">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <input onclick="editProfile()"
-                                                       type="button"
-                                                       class="col-xs-5 btn btn-primary btn-load btn-md"
-                                                       value="Edit Profile"/>
-                                            </td>
-                                            <td>
-                                                <a onclick="window.location.href='/profile';"
-                                                   class="col-xs-5 btn btn-success btn-load btn-md">Back</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-
-                                </div>
+            </div>
+            <div class="col-lg-3">
+                <div>
+                    <br/>
+                    <div class="well">
+                        <br/>
+                        <br/>
+                        <h3 align="center">Search Filters</h3>
+                        <form id="searchFiltersForm" class="form-horizontal">
+                            <!--<div class="form-group has-feedback row">-->
+                            <!--<input type="text" class="form-control" placeholder="Owner" name="" id="owner"/>-->
+                            <!--</div>-->
+                            <div class="form-group has-feedback row">
+                                <input type="text" class="form-control" placeholder="From" id="from"/>
                             </div>
-                        </div>
+                            <div class="form-group has-feedback row">
+                                <input type="text" class="form-control" placeholder="To" id="to"/>
+                            </div>
+
+                            <!--todo add truck type-->
+                            <!--todo add min max price-->
+                            <!--todo add weight-->
+                            <!--<div class="form-group has-feedback row">-->
+                            <!--<div class="checkbox disabled">-->
+                            <!--<label><input type="checkbox" class="form-check-input checkbox-info lg"-->
+                            <!--id="unread"/>Search-->
+                            <!--only unread</label>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <br/>
+                            <p class="text-center">
+                                <button type="button" onclick="applayFilters()" class="btn btn-success btn-lg"
+                                        role="button">Search<span
+                                        class="glyphicon glyphicon-search"/></button>
+                                <button type="button" onclick="resetFilters()" class="btn btn-danger btn-lg"
+                                        role="button">Reset <span
+                                        class="glyphicon glyphicon-trash"/></button>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -471,6 +400,7 @@
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/user/user.js"></script>
+<script src="/js/map/allLoadsMap.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -487,10 +417,7 @@
 
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
-<script> setTimeout(uploadInformationForEditProfile(), 10);</script>
-<script>
-
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfBDnucdZOdQrkmqSyQXQ9xaJRBVmErRA&amp;callback=myMap"></script>
 </body>
 
 </html>

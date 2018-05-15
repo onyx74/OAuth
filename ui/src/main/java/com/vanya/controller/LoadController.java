@@ -37,6 +37,11 @@ public class LoadController {
         return "/loads/load";
     }
 
+
+    @GetMapping("/loads/{loadId}/private")
+    public String getPrivateLoad(@PathVariable("loadId") Long loadId) {
+        return "/loads/loadPrivate";
+    }
     @GetMapping("/load/edit/{loadId}")
     public String getEditLoad(@PathVariable("loadId") Long loadId) {
         return "/loads/editLoad";

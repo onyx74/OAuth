@@ -1,6 +1,8 @@
 let totalPages = 0;
 let number = 0;
 let currentPage = 0;
+let carModel = "";
+let position = "";
 
 function uploadMyPagebleTrucksOnStart() {
 
@@ -10,7 +12,9 @@ function uploadMyPagebleTrucksOnStart() {
         type: 'GET',
         data: {
             pageSize: 5,
-            page: 1
+            page: 1,
+            carModel: carModel,
+            position: position
         },
         success: function (response) {
             processResponse(response);
@@ -76,7 +80,6 @@ function processResponse(response) {
         }
         body.append($('<tr>')
             .append($('<td>').append(truck.truckId))
-            .append($('<td>').append(truck.ownername))
             .append($('<td>').append(truck.carModel))
             .append($('<td>').append(truck.truckType))
             .append($('<td>').text(truck.createDate))
@@ -116,6 +119,19 @@ function processResponse(response) {
         }
     }
     totalPages = response.trucks.totalPages;
+}
 
+function applayFilters() {
+    position = $("#position").val();
+    carModel = $("#carModel").val();
+    uploadMyPagebleTrucksOnStart();
 
+}
+
+function resetFilters() {
+    position = "";
+    carModel = "";
+    $("#position").val("");
+    $("#carModel").val("");
+    uploadMyPagebleTrucksOnStart();
 }

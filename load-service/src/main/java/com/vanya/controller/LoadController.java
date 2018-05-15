@@ -67,6 +67,18 @@ public class LoadController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/api/loads/")
+    public ResponseEntity<?> getAllLoads(@RequestParam("page") Optional<Integer> page,
+                                         @RequestParam("pageSize") Optional<Integer> pageSize,
+                                         @RequestParam("from") String from,
+                                         @RequestParam("to") String to) {
+        int evalPage = getEvalPage(page);
+        int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
+
+        final Page<LoadDTO> loadEntities = loadService.findAllLoads(from, to, evalPage, evalPageSize);
+        final PagebleLoadsDTO response = getPagebleLoadsDTO(evalPageSize, evalPage, loadEntities);
+        return ResponseEntity.ok(response);
+    }
 
     private PagebleLoadsDTO getPagebleLoadsDTO(int evalPageSize, int evalPage, Page<LoadDTO> loadEntities) {
         final Pager pager = new Pager(loadEntities.getTotalPages(),

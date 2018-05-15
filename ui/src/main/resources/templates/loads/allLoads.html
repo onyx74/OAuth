@@ -8,6 +8,7 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/css/font-awesome.min.css"/>
     <!-- Ionicons -->
     <link rel="stylesheet" href="/css/ionicons.min.css"/>
@@ -161,7 +162,7 @@
                 </li>
                 <li class="treeview">
                     <a>
-                        <i class="glyphicon glyphicon-tags"></i> <span>Trucks</span>
+                        <i class="fas fa-truck"></i> <span>Trucks</span>
                         <span class="pull-right-container">
                              <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -181,7 +182,92 @@
     <div class="content-wrapper">
         <!-- Main content -->
         <section id="mainDiv" class="content">
+            <div class="row">
+                <br/>
+                <div class="col-lg-9">
+                    <table id="tableLoads" class="table table-hover table-bordered  table-striped" bgcolor="#FFFFFF">
+                        <thead>
+                        <tr>
+                            <th scope="col">LoadId</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col">Create Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">From</th>
+                            <th scope="col">To</th>
+                            <th scope="col">Distance</th>
+                            <th scope="col">Truck Type</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-3">
+                    <div>
+                        <div class="well">
+                            <h3 align="center">Search Filters</h3>
+                            <form id="searchFiltersForm" class="form-horizontal">
+                                <div class="form-group has-feedback row">
+                                    <input type="text" class="form-control" placeholder="From" name="" id="from"/>
+                                </div>
+                                <div class="form-group has-feedback row">
+                                    <input type="text" class="form-control" placeholder="To" id="to"/>
+                                </div>
+                                <br/>
+                                <p class="text-center">
+                                    <button type="button" onclick="applayFilters()" class="btn btn-success btn-lg"
+                                            role="button">Search<span
+                                            class="glyphicon glyphicon-search"/></button>
+                                    <button type="button" onclick="resetFilters()" class="btn btn-danger btn-lg" role="button">Reset <span
+                                            class="glyphicon glyphicon-trash"/></button>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <br/>
+                        <select class="form-control" id="pageSizeSelect">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                        </select>
+                    </div>
+                    <!--<div class="clearfix"></div>-->
+                    <div class="col-md-3">
+                        <ul id='userPages' class="pagination pull-right">
+                            <li><a onclick="uploadMyPagebleLoads('previous')"><span
+                                    class="glyphicon glyphicon-chevron-left"></span></a>
+                            </li>
+                            <li id="li1"><a id='loadPages1' onclick="uploadMyPagebleLoads('#loadPages1')">1</a></li>
+                            <li id="li2"><a id='loadPages2' onclick="uploadMyPagebleLoads('#loadPages2')">2</a></li>
+                            <li id="li3"><a id='loadPages3' onclick="uploadMyPagebleLoads('#loadPages3')">3</a></li>
+                            <li id="li4"><a id='loadPages4' onclick="uploadMyPagebleLoads('#loadPages4')">4</a></li>
+                            <li id="li5"><a id='loadPages5' onclick="uploadMyPagebleLoads('#loadPages5')">5</a></li>
+                            <li><a href="#" onclick="uploadMyPagebleLoads('next')"><span
+                                    class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class=" col-md-1"/>
+                    <div class=" col-md-4">
+                        <br/>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" onclick="showMyLoadsOnMap()">Show loads on map</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
         </section>
         <!-- /.content -->
     </div>
@@ -349,6 +435,7 @@
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
 <script src="/js/user/user.js"></script>
+<script src="/js/loads/allLoads.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -365,6 +452,8 @@
 
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
+
+<script> setTimeout(uploadMyPagebleLoadsOnStart(), 10);</script>
 </body>
 
 </html>

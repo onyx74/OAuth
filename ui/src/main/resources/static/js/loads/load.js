@@ -36,3 +36,7 @@ function deleteLoad() {
 function editLoad() {
     window.location.href = "/load/edit/" + currentLoadId;
 }
+
+function back() {
+    window.location.href = "/allLoads";
+}

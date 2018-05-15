@@ -73,6 +73,17 @@ public class LoadService {
                 .map(load -> mapper.map(load, LoadDTO.class));
     }
 
+    public Page<LoadDTO> findAllLoads(String from,
+                                      String to,
+                                      int evalPage,
+                                      int evalPageSize) {
+        final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize);
+        return loadRepository.findAllByStartAddressLikeAndFinishAddressLikeAndPublicLoadTrue("%" + from + "%",
+                "%" + to + "%",
+                pageRequest)
+                .map(load -> mapper.map(load, LoadDTO.class));
+    }
+
     public void removeLoad(long loadId) {
         LoadEntity load = loadRepository.findOne(loadId);
         loadRepository.delete(loadId);
