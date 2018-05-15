@@ -55,11 +55,23 @@ public class TruckController {
         int evalPage = getEvalPage(page);
         int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
 
-        final Page<TruckDTO> loadEntities = truckService.findAllTrucks(username, carModel, position, evalPage, evalPageSize);
-        final PagebleTruckDTO response = getPagebleTruckDTO(evalPageSize, evalPage, loadEntities);
+        final Page<TruckDTO> trucksDto = truckService.findAllTrucks(username, carModel, position, evalPage, evalPageSize);
+        final PagebleTruckDTO response = getPagebleTruckDTO(evalPageSize, evalPage, trucksDto);
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/api/trucks/")
+    public ResponseEntity<?> getAllLoads(@RequestParam("page") Optional<Integer> page,
+                                         @RequestParam("pageSize") Optional<Integer> pageSize,
+                                         @RequestParam("carModel") String carModel,
+                                         @RequestParam("position") String position) {
+        int evalPage = getEvalPage(page);
+        int evalPageSize = pageSize.orElse(PaginationUtils.INITIAL_PAGE_SIZE);
+
+        final Page<TruckDTO> trucksDto = truckService.findAllTrucks(carModel, position, evalPage, evalPageSize);
+        final PagebleTruckDTO response = getPagebleTruckDTO(evalPageSize, evalPage, trucksDto);
+        return ResponseEntity.ok(response);
+    }
 
     private PagebleTruckDTO getPagebleTruckDTO(int evalPageSize, int evalPage, Page<TruckDTO> truckDTOS) {
         final Pager pager = new Pager(truckDTOS.getTotalPages(),

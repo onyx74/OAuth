@@ -40,4 +40,10 @@ public class TruckController {
     public String getEditLoad(@PathVariable("truckId") Long truckId) {
         return "/trucks/editTruck";
     }
+
+    @GetMapping("/trucks/{truckId}/private")
+    public String getPrivateLoad(@PathVariable("truckId") Long loadId) {
+        return "/trucks/truckPrivate";
+    }
+
 }

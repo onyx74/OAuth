@@ -47,10 +47,25 @@ public class TruckService {
         return truckEntity;
     }
 
-    public Page<TruckDTO> findAllTrucks(String username, String carModel, String position, int evalPage, int evalPageSize) {
+    public Page<TruckDTO> findAllTrucks(String username,
+                                        String carModel,
+                                        String position,
+                                        int evalPage,
+                                        int evalPageSize) {
         final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize);
         return truckRepository.findAllByOwnernameAndCarModelLikeAndCurrentPossitionLike(username,
                 "%" + carModel + "%",
+                "%" + position + "%",
+                pageRequest)
+                .map(truck -> mapper.map(truck, TruckDTO.class));
+    }
+
+    public Page<TruckDTO> findAllTrucks(String carModel,
+                                        String position,
+                                        int evalPage,
+                                        int evalPageSize) {
+        final PageRequest pageRequest = new PageRequest(evalPage, evalPageSize);
+        return truckRepository.findAllByCarModelLikeAndCurrentPossitionLike("%" + carModel + "%",
                 "%" + position + "%",
                 pageRequest)
                 .map(truck -> mapper.map(truck, TruckDTO.class));

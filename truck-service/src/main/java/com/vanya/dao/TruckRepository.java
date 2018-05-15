@@ -25,5 +25,11 @@ public interface TruckRepository extends PagingAndSortingRepository<TruckEntity,
                                                                                String carModel,
                                                                                String position,
                                                                                Pageable pageable);
+
+    Page<TruckEntity> findAllByCarModelLikeAndCurrentPossitionLike(String carModel,
+                                                                   String position,
+                                                                   Pageable pageable);
+
 }
+
 

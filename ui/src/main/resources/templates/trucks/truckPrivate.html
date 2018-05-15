@@ -8,7 +8,8 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/css/font-awesome.min.css"/>
     <!-- Ionicons -->
     <link rel="stylesheet" href="/css/ionicons.min.css"/>
@@ -22,7 +23,6 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/css/_all-skins.min.css"/>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,7 +33,7 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
-    <title>Truck</title>
+    <title>Truck Page</title>
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"/>
@@ -132,7 +132,6 @@
                         <span class="pull-right-container"></span>
                     </a>
                 </li>
-
                 <li class="treeview">
                     <a href="/messages">
                         <i class="fa fa-envelope"></i> <span>Messages</span>
@@ -187,7 +186,7 @@
 
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Truck Information</h3>
+                            <h3 class="panel-title">Load Information</h3>
                         </div>
                         <fieldset>
                             <form accept-charset="UTF-8" id="form" method='POST' class="form-horizontal"
@@ -260,13 +259,9 @@
                             <!-- Button (Double) -->
                             <div class="form-group">
                                 <div class="row col-md-8 col-md-offset-3">
+
                                     <div class="col-md-5">
-                                        <button id="button1id" onclick="editTruck()" name="button1id"
-                                                class="col-md-11 btn btn-success">Edit Truck
-                                        </button>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <a onclick="deleteTruck()" class="col-md-11 btn btn-danger">Delete Truck </a>
+                                        <a onclick="back()" class="col-md-11 btn btn-lg btn-success">Back</a>
                                     </div>
                                 </div>
                             </div>
@@ -445,8 +440,8 @@
 
 <!-- jQuery 3 -->
 <script src="/js/jquery.min.js"></script>
-<script src="/js/user/user.js"></script>
 <script src="/js/trucks/truck.js"></script>
+<script src="/js/user/user.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- FastClick -->
@@ -464,7 +459,6 @@
 
 <script> setTimeout(uploadBaseUserInformation(), 10);</script>
 <script> setTimeout(loadTrucksDetails(), 10);</script>
-
 </body>
 
 </html>

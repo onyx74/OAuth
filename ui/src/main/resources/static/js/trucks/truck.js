@@ -37,3 +37,7 @@ function deleteTruck() {
 function editTruck() {
     window.location.href = "/truck/edit/" + currentTruckId;
 }
+
+function back() {
+    window.location.href = "/allTrucks";
+}
