@@ -12,6 +12,9 @@ public class VrpItemDTO {
     private long solutionId;
     private int position;
 
+    private String startLocation;
+    private String finishLocation;
+
     private double startLongitude;
     private double startLatitude;
     private double finishLatitude;

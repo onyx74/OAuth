@@ -3,6 +3,8 @@
  */
 package com.vanya.provider;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author ivan.hladush(ihladush)
  * @since 0.11

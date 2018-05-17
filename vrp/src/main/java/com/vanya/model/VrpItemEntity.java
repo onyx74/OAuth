@@ -23,9 +23,11 @@ public class VrpItemEntity {
     @ManyToOne
     private VrpEntity vrp;
 
+    private String startLocation;
+    private String finishLocation;
+
     private double startLongitude;
     private double startLatitude;
     private double finishLatitude;
     private double finishLongitude;
-
 }

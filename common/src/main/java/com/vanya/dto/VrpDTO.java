@@ -15,6 +15,7 @@ public class VrpDTO {
     private String startLocation;
     private double startLatitude;
     private double startLongitude;
+    private double totalDistance;
     private int position;
     private Date createDate;
     private Collection<VrpItemDTO> vrpItemEntities;

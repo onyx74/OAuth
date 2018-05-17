@@ -23,6 +23,7 @@ public class VrpEntity {
     private String startLocation;
     private double startLatitude;
     private double startLongitude;
+    private double totalDistance;
     private Date createDate;
     @OneToMany(mappedBy = "vrp", cascade = CascadeType.ALL)
     private Collection<VrpItemEntity> vrpItemEntities;

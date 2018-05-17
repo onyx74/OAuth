@@ -52,6 +52,7 @@ public class GoogleApiUtils {
     }
 
     public long getDistance(LatLng firstPlace, LatLng secondPlace) {
+        log.info("Get distance between");
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(googleMapsDistanceKey)
                 .build();

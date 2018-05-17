@@ -11,7 +11,7 @@ function myMap() {
     directionsService = new google.maps.DirectionsService();
     directionsDisplay = new google.maps.DirectionsRenderer();
     var mapProp = {
-        center: new google.maps.LatLng(51.508742, -0.120850),
+        center: new google.maps.LatLng(50.4593526, 30.4965838),
         zoom: 5,
     };
     map = new google.maps.Map(document.getElementById("googleMap"), mapProp);

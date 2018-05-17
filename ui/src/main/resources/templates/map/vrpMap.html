@@ -8,7 +8,8 @@
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/css/font-awesome.min.css"/>
     <!-- Ionicons -->
     <link rel="stylesheet" href="/css/ionicons.min.css"/>
@@ -200,12 +201,46 @@
     <div class="content-wrapper" style="height:100%; width:100%;">
         <!-- Main content -->
         <div class="row" style="height:100%; width:100%;">
-            <div class="col-lg-10" style="height:100%; width:60%;">
+            <div class="col-lg-8" style="height:100%; width:60%;">
                 <br/>
                 <div id="googleMap" style="width:100%;height:700px;"></div>
 
             </div>
 
+
+            <div class="col-lg-3">
+                <br/>
+                <fieldset>
+                    <form accept-charset="UTF-8" id="form" method='POST' class="form-horizontal"
+                          commandName="CreateNewLoad">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="roadName">Road name:</label>
+                            <div class="col-md-3">
+                                <p id="roadName"
+                                   class="form-control input-md"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="totalDistance">Distance km</label>
+                            <div class="col-md-3">
+                                <p id="totalDistance"
+                                   class="form-control input-md"/>
+                            </div>
+                        </div>
+                    </form>
+                </fieldset>
+                <table id="tableVrp" class="table table-hover table-bordered  table-striped" bgcolor="#FFFFFF">
+                    <thead>
+                    <tr>
+                        <th scope="col">Road</th>
+                        <th scope="col">Loads Id</th>
+                        <th scope="col">Color</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!-- /.content -->
     </div>

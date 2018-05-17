@@ -56,6 +56,7 @@ public class VRPTest {
                 loads.add(loadDTO);
             }
             Table<Long, Long, Double> distances = distanceProvider.calculateDistance(startLocation, loads);
+            printDistances(distances);
             Multimap<Long, Long> longLongMultimap = vrpCalculator.clarckSolver(distances);
             System.out.println(longLongMultimap);
             Map<Long, LoadDTO> collect = loads.stream().collect(Collectors.toMap(LoadDTO::getLoadId, load -> load,
@@ -66,5 +67,24 @@ public class VRPTest {
             e.printStackTrace();
         }
         throw new RuntimeException();
+    }
+
+    static int i = 0;
+
+    private static void printDistances(Table<Long, Long, Double> distances)  {
+
+        try (FileWriter fileWriter = new FileWriter(new File(i + ".txt"))) {
+            System.out.println("Start pring Distance");
+            for (Table.Cell<Long, Long, Double> cell : distances.cellSet()) {
+
+                fileWriter.write(cell.getColumnKey() + "    " + cell.getRowKey() + "    " + cell.getValue()+ "                                     0.0");
+                fileWriter.write("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Finish pring Distance");
+        i++;
     }
 }

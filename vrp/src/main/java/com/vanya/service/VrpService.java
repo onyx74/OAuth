@@ -15,6 +15,7 @@ import com.vanya.model.VrpItemEntity;
 import com.vanya.provider.DistanceProvider;
 import com.vanya.utils.GoogleApiUtils;
 import javafx.util.Pair;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -28,12 +29,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class VrpService {
     @Autowired
     private VrpRepository vrpRepository;
-
-    @Autowired
-    private VrpItemRepository vrpItemRepository;
 
     @Autowired
     private GoogleApiUtils googleApiUtils;
@@ -42,7 +41,7 @@ public class VrpService {
     private LoadClient loadClient;
 
     @Autowired
-    @Qualifier("DescartesDistanceProvider")
+    @Qualifier("GoogleDistanceProvider")
     private DistanceProvider distanceProvider;
 
     @Autowired
@@ -51,11 +50,16 @@ public class VrpService {
     public VrpDTO calculateOptimalWay(List<Long> loadsId, String startPosition, String name) {
         LatLng geocod = googleApiUtils.geocod(startPosition);
         List<LoadDTO> loads = loadClient.getLoads(loadsId);
-        Table<Long, Long, Double> table = distanceProvider.calculateDistance(new Pair<>(geocod.lat, geocod.lng), loads);
-
+        Pair<Double, Double> startCoordinate = new Pair<>(geocod.lat, geocod.lng);
+        Table<Long, Long, Double> table = distanceProvider.calculateDistance(startCoordinate, loads);
+        Map<Long, LoadDTO> loadDTOMap = loads.stream()
+                .collect(Collectors.toMap(LoadDTO::getLoadId, load -> load,
+                        (oldValue, newValue) -> oldValue));
+        log.info("Start calculation");
         Multimap<Long, Long> result = vrpCalculator.clarckSolver(table);
-        VrpEntity vrpEntity = convertToVrpEntity(result, loads, geocod);
+        VrpEntity vrpEntity = convertToVrpEntity(result, loadDTOMap, geocod);
         vrpEntity.setName(name);
+        vrpEntity.setTotalDistance(distanceProvider.calculateDistance(startCoordinate, result, loadDTOMap));
         vrpEntity.setStartLocation(startPosition);
         vrpRepository.save(vrpEntity);
         return convertToVrpEntityDTO(vrpEntity);
@@ -80,11 +84,9 @@ public class VrpService {
         return convertToVrpEntityDTO(vrpEntity);
     }
 
-    private VrpEntity convertToVrpEntity(Multimap<Long, Long> result, List<LoadDTO> loads, LatLng startPosition) {
+    private VrpEntity convertToVrpEntity(Multimap<Long, Long> result, Map<Long, LoadDTO> loadDTOMap, LatLng startPosition) {
         VrpEntity vrpEntity = createVrpEntity(startPosition);
-        Map<Long, LoadDTO> loadDTOMap = loads.stream()
-                .collect(Collectors.toMap(LoadDTO::getLoadId, load -> load,
-                        (oldValue, newValue) -> oldValue));
+
         Set<VrpItemEntity> vrpItemEntities = new HashSet<>();
 
         for (Long solutionId : result.keySet()) {
@@ -104,8 +106,11 @@ public class VrpService {
         VrpItemEntity vrpItemEntity = new VrpItemEntity();
         vrpItemEntity.setStartLatitude(loadDTO.getStartLatitude());
         vrpItemEntity.setStartLongitude(loadDTO.getStartLongitude());
+
         vrpItemEntity.setFinishLatitude(loadDTO.getFinishLatitude());
-        vrpItemEntity.setFinishLongitude(loadDTO.getStartLongitude());
+        vrpItemEntity.setFinishLongitude(loadDTO.getFinishLongitude());
+        vrpItemEntity.setStartLocation(loadDTO.getStartAddress());
+        vrpItemEntity.setFinishLocation(loadDTO.getFinishAddress());
         vrpItemEntity.setLoadId(loadDTO.getLoadId());
         vrpItemEntity.setSolutionId(solutionId);
         vrpItemEntity.setPosition(position);
@@ -135,6 +140,7 @@ public class VrpService {
         );
         vrpDTO.setVrpId(vrpEntity.getVrpId());
         vrpDTO.setName(vrpEntity.getName());
+        vrpDTO.setTotalDistance(vrpEntity.getTotalDistance());
         vrpDTO.setStartLocation(vrpEntity.getStartLocation());
         return vrpDTO;
     }
@@ -144,6 +150,8 @@ public class VrpService {
         vrpItemDTO.setLoadId(vrpItemEntity.getLoadId());
         vrpItemDTO.setSolutionId(vrpItemEntity.getSolutionId());
         vrpItemDTO.setVrpItemId(vrpItemEntity.getVrpItemId());
+        vrpItemDTO.setStartLocation(vrpItemEntity.getStartLocation());
+        vrpItemDTO.setFinishLocation(vrpItemEntity.getFinishLocation());
         vrpItemDTO.setStartLatitude(vrpItemEntity.getStartLatitude());
         vrpItemDTO.setStartLongitude(vrpItemEntity.getStartLongitude());
         vrpItemDTO.setFinishLatitude(vrpItemEntity.getFinishLatitude());
