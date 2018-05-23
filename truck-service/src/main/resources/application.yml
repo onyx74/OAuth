@@ -6,7 +6,7 @@ spring:
   application:
     name: truck-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/truckdb
+    url: jdbc:postgresql://postgredb:5432/truckdb
     username: vanya
     password: 123456
   jpa:

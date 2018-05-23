@@ -6,7 +6,7 @@ spring:
   application:
     name: load-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/loaddb
+    url: jdbc:postgresql://postgredb:5432/loaddb
     username: vanya
     password: 123456
   jpa:
